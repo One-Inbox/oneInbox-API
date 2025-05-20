@@ -1,9 +1,8 @@
 const { createBusiness } = require("../../controllers/Business/createBusiness");
 
 const createBusinessHandler = async (req, res) => {
-  const { name, password, address, city, country, email, phone, srcName } =
-    req.body;
-  //const{name, password, address, city, country, email, phone} = req.body;
+  //const { name, password, address, city, country, email, phone, srcName } =
+  const { name, password, address, city, country, email, phone } = req.body;
 
   try {
     if (!name || !password || !country || !email)
@@ -16,8 +15,8 @@ const createBusinessHandler = async (req, res) => {
       city,
       country,
       email,
-      phone,
-      srcName
+      phone
+      // srcName
     );
     //  const newBusiness = await createBusiness(name, password, address, city, country, email, phone);
     res.status(201).json(newBusiness);

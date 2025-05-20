@@ -10,7 +10,6 @@ module.exports = (sequelize) => {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
       },
-
       name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -53,14 +52,13 @@ module.exports = (sequelize) => {
       //     allowNull: false,
       //     defaultValue: false
       //   }
-      //Archivar user 
+      //Archivar user
       active: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
         defaultValue: true,
-      }
+      },
     },
     { timestamps: false }
   );
 };
-

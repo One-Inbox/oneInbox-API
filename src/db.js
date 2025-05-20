@@ -10,26 +10,44 @@ const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 require("dotenv").config();
 
+const isProduction = process.env.NODE_ENV === "production";
+const DB_USER = process.env.DB_USER;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_HOST = process.env.DB_HOST;
+const DB_NAME = process.env.DB_NAME;
+const DB_PORT = process.env.DB_PORT;
 
-// const DB_USER =process.env.DB_USER
-// const DB_PASSWORD =process.env.DB_PASSWORD
-// const DB_HOST =process.env.DB_HOST
-// const DB_NAME =process.env.DB_NAME
+const DATABASE_URL = `postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`;
+
+// Configuración condicional para desarrollo vs producción
+const sequelize = new Sequelize(DATABASE_URL, {
+  dialect: "postgres",
+  logging: false,
+  native: false,
+  dialectOptions: isProduction
+    ? {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false, // <- Esto evita errores de certificados autofirmados en Render
+        },
+      }
+    : {}, // sin SSL en desarrollo
+});
 //db url
-const sequelize = new Sequelize(
-  "postgresql://oneinboxuser:G3pJaVRqfkNfgm4eZucl4gASL6jQS2KI@dpg-cvavqvqj1k6c73922m5g-a.oregon-postgres.render.com/oneinboxdatabase",
-  //`postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
+// const sequelize = new Sequelize(
+//   //"postgresql://oneinboxuser:G3pJaVRqfkNfgm4eZucl4gASL6jQS2KI@dpg-cvavqvqj1k6c73922m5g-a.oregon-postgres.render.com/oneinboxdatabase",
+//   `postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
 
-  {
-    dialectOptions: {
-      ssl: {
-        require: true,
-      },
-    },
-    logging: false,
-    native: false,
-  }
-);
+//   {
+//     dialectOptions: {
+//       ssl: {
+//         require: true,
+//       },
+//     },
+//     logging: false,
+//     native: false,
+//   }
+// );
 
 UserModel(sequelize);
 ContactsModel(sequelize);
@@ -116,7 +134,7 @@ SocialMediaActive.belongsToMany(SocialMedia, {
 });
 
 const syncDatabase = async () => {
-  await sequelize.sync({ alter: false }); // Sincronizar base de datos con el modelo alterado
+  await sequelize.sync({ alter: true }); // Sincronizar base de datos con el modelo alterado
 
   await MsgReceived.updateDefaultText();
 };
