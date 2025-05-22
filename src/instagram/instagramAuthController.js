@@ -17,7 +17,7 @@ async function handleInstagramCallback(req, res) {
   const redirectUri = process.env.INSTAGRAM_REDIRECT_URI;
   const dataUser = "Instagram"; // Para identificar esta red social
   const socialMediaId = 3; // ID de la red social correspondiente a Instagram en tu base de datos
-  const businessId = "c3ea9d75-db7c-4dda-bca5-232d4a2b2ba1"; // Ajusta según corresponda
+  const businessId = "228a060d-2374-4fcd-a4ab-6f7187dc5051"; // Ajusta según corresponda
 
   try {
     // Solicitar el token de acceso de corta duración
@@ -37,7 +37,7 @@ async function handleInstagramCallback(req, res) {
     // Obtener los datos del token de corta duración y el user_id
     const { access_token: shortLivedToken, user_id } = response.data;
     if (!user_id) {
-      throw new Error('Instagram no devolvió un user_id válido.');
+      throw new Error("Instagram no devolvió un user_id válido.");
     }
     const userId = user_id.toString();
 
@@ -45,7 +45,7 @@ async function handleInstagramCallback(req, res) {
     console.log("Token de corta duración obtenido:", shortLivedToken);
 
     // Obtener el token de larga duración
-    console.log('Pasando a getLongLivedToken:', { shortLivedToken, userId });
+    console.log("Pasando a getLongLivedToken:", { shortLivedToken, userId });
 
     const longLivedToken = await getLongLivedToken(shortLivedToken, userId);
 
@@ -87,7 +87,7 @@ async function handleInstagramCallback(req, res) {
         active: true,
         socialMediaId,
         userId,
-        accessToken:longLivedToken,
+        accessToken: longLivedToken,
         refreshToken: null,
         authorizationCode: code,
         expirationDate,

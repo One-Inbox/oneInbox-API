@@ -1,6 +1,9 @@
 //controlador (mercadoLibreQuestionController) que gestiona la interacción con la API de Mercado Libre para obtener preguntas, detalles de preguntas, detalles de productos y registrar un webhook para recibir notificaciones de nuevas preguntas.
 
 const axios = require("axios");
+require("dotenv").config();
+
+const URL = process.env.URL;
 
 const mercadoLibreQuestionController = {
   getQuestions: async (accessToken) => {
@@ -30,7 +33,9 @@ const mercadoLibreQuestionController = {
       throw new Error("MELI-PREGUNTA:El questionId o accessToken es inválido.");
     }
     try {
-      console.log(`MELI-PREGUNTA CONTROLLER: Obteniendo detalles de la pregunta ${questionId}...` );
+      console.log(
+        `MELI-PREGUNTA CONTROLLER: Obteniendo detalles de la pregunta ${questionId}...`
+      );
       const response = await axios.get(
         `https://api.mercadolibre.com/questions/${questionId}`,
         {
@@ -39,22 +44,27 @@ const mercadoLibreQuestionController = {
           },
         }
       );
-      console.log(`MELI-PREGUNTA CONTROLLER: Detalles de la pregunta ${questionId} obtenidos exitosamente.`, response.data);
+      console.log(
+        `MELI-PREGUNTA CONTROLLER: Detalles de la pregunta ${questionId} obtenidos exitosamente.`,
+        response.data
+      );
 
       return response.data;
     } catch (error) {
       console.log(
-        `MELI-PREGUNTA:Error al obtener los detalles de la pregunta ${questionId}:`,
-      )
+        `MELI-PREGUNTA:Error al obtener los detalles de la pregunta ${questionId}:`
+      );
       throw new Error(
         "MELI-PREGUNTA:No se pudieron obtener los detalles de la pregunta."
       );
     }
   },
-  
+
   getProductDetails: async (itemId, accessToken) => {
     try {
-      console.log(`MELI-PRODUCTO: Obteniendo detalles del producto ${itemId}...`);
+      console.log(
+        `MELI-PRODUCTO: Obteniendo detalles del producto ${itemId}...`
+      );
       const response = await axios.get(
         `https://api.mercadolibre.com/items/${itemId}`,
         {
@@ -63,20 +73,27 @@ const mercadoLibreQuestionController = {
           },
         }
       );
-      console.log(`MELI-PRODUCTO: Detalles del producto ${itemId} obtenidos exitosamente.`, response.data);
+      console.log(
+        `MELI-PRODUCTO: Detalles del producto ${itemId} obtenidos exitosamente.`,
+        response.data
+      );
       return response.data;
     } catch (error) {
       console.error(
         `MELI-PRODUCTO:Error al obtener los detalles del producto ${itemId}:`,
         error.response?.data || error.message
       );
-      throw new Error("MELI-PRODUCTO:No se pudieron obtener los detalles del producto.");
+      throw new Error(
+        "MELI-PRODUCTO:No se pudieron obtener los detalles del producto."
+      );
     }
   },
-  
+
   registerWebhook: async (accessToken, userId, applicationId) => {
     try {
-      console.log(`MELI-PREGUNTA CONTROLLER: Registrando webhook para el usuario ${userId} y aplicación ${applicationId}...`);
+      console.log(
+        `MELI-PREGUNTA CONTROLLER: Registrando webhook para el usuario ${userId} y aplicación ${applicationId}...`
+      );
 
       const response = await axios.post(
         `https://api.mercadolibre.com/users/${userId}/applications/${applicationId}/notifications`,
@@ -84,8 +101,9 @@ const mercadoLibreQuestionController = {
           user_id: userId,
           topic: "questions",
           application_id: applicationId,
+          url: `${URL}/mercadolibre/webhook`,
           //DESARROLLO
-          url: "https://electrica-mosconi-backend.onrender.com/mercadolibre/webhook",
+          //url: "https://electrica-mosconi-backend.onrender.com/mercadolibre/webhook",
           //PRODUCCION
           //url: "https://electrica-mosconi-backend-main.onrender.com/mercadolibre/webhook",
 

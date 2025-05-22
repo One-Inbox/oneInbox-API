@@ -5,6 +5,7 @@ const tokenRenewal = require("./src/utils/tokenRenewal.js");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 3000;
+
 //const PORT = 3000;
 const testConnection = async () => {
   try {
@@ -68,10 +69,17 @@ const setTelegramWebhook = async (url, retries = 5, delay = 3000) => {
   }
 };
 
+const URL = process.env.URL;
+if (!URL || !URL.startsWith("https://")) {
+  console.error("La URL del webhook debe ser HTTPS y válida.");
+} else {
+  setTelegramWebhook(URL);
+}
+
 // DESARROLLO
 //const URL = "https://electrica-mosconi-backend.onrender.com/telegram/webhook";
 //PRODUCCION
-const URL =
-  "https://electrica-mosconi-backend-main.onrender.com/telegram/webhook";
+// const URL =
+//   "https://electrica-mosconi-backend-main.onrender.com/telegram/webhook";
 
-setTelegramWebhook(URL);
+//setTelegramWebhook(URL);

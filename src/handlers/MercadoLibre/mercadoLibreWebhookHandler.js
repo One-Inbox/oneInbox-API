@@ -8,7 +8,7 @@ const { newMsgReceived } = require("../../utils/newMsgReceived");
 const { postNewMsgReceived } = require("../../utils/postNewMsgReceived");
 const { getAccessTokenFromDB } = require("../../utils/getAccessToken");
 
-const businessId = "c3ea9d75-db7c-4dda-bca5-232d4a2b2ba1";
+const businessId = "228a060d-2374-4fcd-a4ab-6f7187dc5051";
 const socialMediaId = 5;
 
 const mercadoLibreWebhookHandler = async (req, res) => {
@@ -16,11 +16,9 @@ const mercadoLibreWebhookHandler = async (req, res) => {
   try {
     if (topic === "items") {
       console.log("MELI-RESPUESTA:El mensaje se ha respondido conrrectamente.");
-      res
-        .status(200)
-        .json({
-          message: "MELI-RESPUESTA:El mensaje se ha respondido conrrectamente.",
-        });
+      res.status(200).json({
+        message: "MELI-RESPUESTA:El mensaje se ha respondido conrrectamente.",
+      });
     } else if (topic === "questions") {
       const question = req.body;
       console.log("mensaje recibido desde Meli", question);
