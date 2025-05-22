@@ -1,4 +1,4 @@
-const { syncDatabase, conn } = require("../db.js");
+const { conn } = require("../db.js");
 const testConnection = async () => {
   try {
     await conn.authenticate();

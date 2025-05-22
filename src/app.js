@@ -14,21 +14,23 @@ const {
 } = require("./utils/sentMsgFunctions/index");
 const passport = require("./config/passport");
 const session = require("express-session");
-const { log } = require("console");
-const cookieParser = require('cookie-parser')
+//const { log } = require("console");
+const cookieParser = require("cookie-parser");
 
 require("dotenv").config();
 
 const server = express();
 const app = http.createServer(server);
 
-
 const io = new Server(app, {
-  cors: ({
-    origin:["https://electrica-mosconi-frontend-ebon.vercel.app", "http://localhost:5173"],
+  cors: {
+    origin: [
+      "https://electrica-mosconi-frontend-ebon.vercel.app",
+      "http://localhost:5173",
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-  }),
+  },
 });
 
 io.use((socket, next) => {
@@ -47,11 +49,11 @@ io.use((socket, next) => {
 
 server.name = "server";
 
+const URL_CLIENT = process.env.URL_CLIENT;
 const allowedOrigins = [
-  "https://electrica-mosconi-frontend-ebon.vercel.app", 
+  URL_CLIENT,
   "http://localhost:5173",
   "http://localhost:5174",
-
 ];
 
 // Middleware personalizado para CORS
@@ -64,7 +66,10 @@ server.use((req, res, next) => {
   }
   // Configuración adicional de CORS
   res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, DELETE"
+  );
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
@@ -80,7 +85,7 @@ server.use((req, res, next) => {
 server.use(morgan("dev"));
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
-server.use(cookieParser())
+server.use(cookieParser());
 
 sessionStore.sync(); // Sincroniza el almacenamiento de sesiones con la base de datos
 
@@ -110,7 +115,7 @@ io.on("connection", async (socket) => {
 
   server.post("/newMessageReceived", async (req, res) => {
     const messageData = await req.body;
-    console.log(messageData)
+    console.log(messageData);
     try {
       // Emitir el evento desde app con los datos recibidos
       io.emit("NEW_MESSAGE_RECEIVED", messageData);
@@ -153,9 +158,9 @@ server.post("/messageSend", async (req, res) => {
     IdSocialMedia,
     phone,
     contactId,
-    idUser
+    idUser,
   } = req.body;
-  
+
   //console.log('en app', UserId);
   if (
     !chatId ||
@@ -168,7 +173,6 @@ server.post("/messageSend", async (req, res) => {
     throw new Error("APP.JS-RESPUESTA: Missing Data");
   try {
     if (IdSocialMedia === 1) {
-      
       const response = await telegramSendMessage(
         chatId,
         message,
@@ -176,7 +180,14 @@ server.post("/messageSend", async (req, res) => {
         businessId,
         contactId
       );
-      console.log('mando respuesta a telegram con data :', chatId, message, UserId, businessId, contactId);
+      console.log(
+        "mando respuesta a telegram con data :",
+        chatId,
+        message,
+        UserId,
+        businessId,
+        contactId
+      );
       if (response.success) {
         io.emit("NEW_MESSAGE_SENT", { chatId, message, UserId });
         console.log(
@@ -193,18 +204,20 @@ server.post("/messageSend", async (req, res) => {
       }
     }
     if (IdSocialMedia === 2) {
-      console.log('data que sale desde app a funcion de whats:', {  chatId,
+      console.log("data que sale desde app a funcion de whats:", {
+        chatId,
         message,
         UserId,
-        phone, 
+        phone,
         businessId,
-        contactId});
-      
+        contactId,
+      });
+
       const response = await whatsappSendMessage(
         chatId,
         message,
         UserId,
-        phone, 
+        phone,
         businessId,
         contactId
       );
@@ -232,8 +245,8 @@ server.post("/messageSend", async (req, res) => {
         contactId,
         idUser
       );
-      console.log('respuesta de la funcion', response);
-      
+      console.log("respuesta de la funcion", response);
+
       if (response.success) {
         io.emit("NEW_MESSAGE_SENT", { chatId, message, UserId });
         console.log(

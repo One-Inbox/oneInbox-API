@@ -1,7 +1,7 @@
 const passport = require("passport");
 const FacebookStrategy = require("passport-facebook").Strategy;
 require("dotenv").config();
-const URL = process.env.URL;
+const URL_API = process.env.URL_API;
 
 // Configuración de la estrategia de Facebook
 passport.use(
@@ -9,7 +9,7 @@ passport.use(
     {
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: `${URL}/auth/facebook/callback`,
+      callbackURL: `${URL_API}/auth/facebook/callback`,
       //DESARROLLO
       //callbackURL: "https://electrica-mosconi-backend.onrender.com/auth/facebook/callback",
       //PRODUCCION:

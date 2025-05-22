@@ -3,7 +3,7 @@
 const axios = require("axios");
 require("dotenv").config();
 
-const URL = process.env.URL;
+const URL_API = process.env.URL_API;
 
 const mercadoLibreQuestionController = {
   getQuestions: async (accessToken) => {
@@ -101,7 +101,7 @@ const mercadoLibreQuestionController = {
           user_id: userId,
           topic: "questions",
           application_id: applicationId,
-          url: `${URL}/mercadolibre/webhook`,
+          url: `${URL_API}/mercadolibre/webhook`,
           //DESARROLLO
           //url: "https://electrica-mosconi-backend.onrender.com/mercadolibre/webhook",
           //PRODUCCION

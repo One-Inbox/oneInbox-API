@@ -1,7 +1,7 @@
 const axios = require("axios");
 require("dotenv").config();
 
-const URL = process.env.URL;
+const URL_API = process.env.URL_API;
 //const URL = "https://electrica-mosconi-backend.onrender.com" DESARROLLO
 //const URL = "https://electrica-mosconi-backend-main.onrender.com"
 
@@ -16,7 +16,7 @@ const postNewMsgReceived = async (msgReceivedData, res) => {
       res && res.status(200).send("Mensaje de tipo echo ignorado");
       return;
     }
-    await axios.post(`${URL}/newMessageReceived`, msgReceivedData);
+    await axios.post(`${URL_API}/newMessageReceived`, msgReceivedData);
     res && res.status(200).send("OK");
     console.log("PREGUNTA: data del mensaje recibido enviado a app");
   } catch (error) {

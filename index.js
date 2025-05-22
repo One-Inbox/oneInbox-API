@@ -9,7 +9,7 @@ const tokenRenewal = require("./src/utils/tokenRenewal.js");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 3000;
-const URL = process.env.URL;
+const URL_API = process.env.URL_API; //
 
 app.listen(PORT, async () => {
   try {
@@ -64,10 +64,10 @@ app.listen(PORT, async () => {
 //   }
 // };
 
-if (!URL || !URL.startsWith("https://")) {
+if (!URL_API || !URL_API.startsWith("https://")) {
   console.error("La URL del webhook debe ser HTTPS y válida.");
 } else {
-  setTelegramWebhook(URL);
+  setTelegramWebhook(URL_API);
 }
 
 // DESARROLLO
