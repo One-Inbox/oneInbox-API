@@ -11,8 +11,9 @@ require("dotenv").config();
 const { newContactCreated } = require("../utils/newContact");
 const { newMsgReceived } = require("../utils/newMsgReceived");
 const { postNewMsgReceived } = require("../utils/postNewMsgReceived");
+require("dotenv").config();
 
-const businessId = "228a060d-2374-4fcd-a4ab-6f7187dc5051";
+const businessId = process.env.BUSINESS_ID;
 const socialMediaId = 2; // Este es el id de WhatsApp en SocialMedia
 const GRAPH_API_TOKEN = process.env.GRAPH_API_TOKEN; // Usa tu token de WhatsApp Business API
 

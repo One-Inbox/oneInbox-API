@@ -4,6 +4,7 @@ const { SocialMediaActive, Business, SocialMedia } = require("../db");
 const { getLongLivedToken } = require("./instagramTokenController");
 
 require("dotenv").config();
+const myBusinessId = process.env.BUSINESS_ID;
 
 async function initiateInstagramLogin(req, res) {
   const authUrl = `https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.INSTAGRAM_APP_ID}&redirect_uri=${process.env.INSTAGRAM_REDIRECT_URI}&response_type=code&scope=instagram_business_basic%2Cinstagram_business_manage_messages%2Cinstagram_business_manage_comments%2Cinstagram_business_content_publish`;
@@ -17,7 +18,7 @@ async function handleInstagramCallback(req, res) {
   const redirectUri = process.env.INSTAGRAM_REDIRECT_URI;
   const dataUser = "Instagram"; // Para identificar esta red social
   const socialMediaId = 3; // ID de la red social correspondiente a Instagram en tu base de datos
-  const businessId = "228a060d-2374-4fcd-a4ab-6f7187dc5051"; // Ajusta según corresponda
+  const businessId = myBusinessId; // ID del negocio, puedes cambiarlo según tu lógica
 
   try {
     // Solicitar el token de acceso de corta duración

@@ -3,6 +3,9 @@ const { Business, SocialMedia } = require("../../db");
 const { newContactCreated } = require("../../utils/newContact");
 const { newMsgReceived } = require("../../utils/newMsgReceived");
 const { postNewMsgReceived } = require("../../utils/postNewMsgReceived");
+require("dotenv").config();
+
+const myBusinessId = process.env.BUSINESS_ID;
 //const axios = require("axios");
 
 const messageWebhook = Router();
@@ -12,7 +15,7 @@ module.exports = (io) => {
   messageWebhook.post("/webhook", async (req, res) => {
     console.log("Webhook alcanzado al recibir un mensaje");
 
-    const businessId = "228a060d-2374-4fcd-a4ab-6f7187dc5051";
+    const businessId = myBusinessId;
     const socialMediaId = 1; // ID de Telegram
 
     const { message } = req.body;

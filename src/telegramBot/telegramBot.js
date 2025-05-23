@@ -9,7 +9,7 @@ const botToken = process.env.TELEGRAM_BOT_TOKEN;
 //const bot = new TelegramBot(botToken, {polling: true});
 const bot = new TelegramBot(botToken);
 
-const businessId = "228a060d-2374-4fcd-a4ab-6f7187dc5051";
+const businessId = process.env.BUSINESS_ID;
 const socialMediaId = 1; //este es el id de telegram
 
 bot.on("message", async (msg) => {

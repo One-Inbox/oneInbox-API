@@ -10,7 +10,7 @@ const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 require("dotenv").config();
 
-const isProduction = process.env.NODE_ENV === "production";
+//const isProduction = process.env.NODE_ENV === "production";
 const DB_USER = process.env.DB_USER;
 const DB_PASSWORD = process.env.DB_PASSWORD;
 const DB_HOST = process.env.DB_HOST;
@@ -24,14 +24,12 @@ const sequelize = new Sequelize(DATABASE_URL, {
   dialect: "postgres",
   logging: false,
   native: false,
-  dialectOptions: isProduction
-    ? {
-        ssl: {
-          require: true,
-          rejectUnauthorized: false, // <- Esto evita errores de certificados autofirmados en Render
-        },
-      }
-    : {}, // sin SSL en desarrollo
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false, // <- Esto evita errores de certificados autofirmados en Render
+    },
+  },
 });
 //db url
 // const sequelize = new Sequelize(

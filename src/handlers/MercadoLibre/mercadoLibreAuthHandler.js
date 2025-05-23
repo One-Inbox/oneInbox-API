@@ -8,8 +8,10 @@ const {
 } = require("../../controllers/SocialMedia/SocialMediaActive/addSocialMediaActive");
 const { SocialMediaActive, Business } = require("../../db");
 //const { addSocialMediaActiveFunction } = require("../../utils/addSocialMediaActiveFunction");
+require("dotenv").config();
+
+const businessId = process.env.BUSINESS_ID;
 const socialMediaId = 5;
-const businessId = "228a060d-2374-4fcd-a4ab-6f7187dc5051";
 
 const mercadoLibreAuthHandler = async (req, res) => {
   const business = await Business.findByPk(businessId);
@@ -96,11 +98,9 @@ const mercadoLibreAuthHandler = async (req, res) => {
     }
   } catch (error) {
     console.error("MELI-AUTH: Error al redirigir a Mercado Libre:", error);
-    res
-      .status(500)
-      .json({
-        message: "MELI-AUTH: Error en la autenticación con Mercado Libre",
-      });
+    res.status(500).json({
+      message: "MELI-AUTH: Error en la autenticación con Mercado Libre",
+    });
   }
 };
 
@@ -124,11 +124,9 @@ const mercadoLibreCallbackHandler = async (req, res) => {
     console.log("Código recibido de Mercado Libre2:", code);
 
     if (!code) {
-      return res
-        .status(400)
-        .json({
-          message: "MELI-AUTH: No se proporcionó el código de autorización.",
-        });
+      return res.status(400).json({
+        message: "MELI-AUTH: No se proporcionó el código de autorización.",
+      });
     }
 
     const { accessToken, refreshToken, authorizationCode, userId, expires_in } =

@@ -7,8 +7,9 @@ const { newContactCreated } = require("../../utils/newContact");
 const { newMsgReceived } = require("../../utils/newMsgReceived");
 const { postNewMsgReceived } = require("../../utils/postNewMsgReceived");
 const { getAccessTokenFromDB } = require("../../utils/getAccessToken");
+require("dotenv").config();
 
-const businessId = "228a060d-2374-4fcd-a4ab-6f7187dc5051";
+const businessId = process.env.BUSINESS_ID;
 const socialMediaId = 5;
 
 const mercadoLibreWebhookHandler = async (req, res) => {
