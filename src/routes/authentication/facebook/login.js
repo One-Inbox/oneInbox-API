@@ -4,7 +4,8 @@ require("dotenv").config();
 
 const fbAuthentication = Router();
 
-const URL_CLIENT = process.env.URL_CLIENT;
+const URL_CLIENT =
+  process.env.URL_CLIENT || "http://localhost:5173" || "http://localhost:5174"; // URL del cliente
 
 // Ruta para el inicio de sesión con Facebook
 fbAuthentication.get(

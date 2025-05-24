@@ -2,7 +2,7 @@ require("dotenv").config();
 const axios = require("axios");
 const { newMsgSent } = require("../newMsgSent");
 const { Business } = require("../../db");
-const {formatPhone} = require("../formatPhone")
+const { formatPhone } = require("../formatPhone");
 
 const GRAPH_API_TOKEN = process.env.GRAPH_API_TOKEN; // Usa tu token de WhatsApp Business API
 const BUSINESS_PHONE_NUMBER_ID =
@@ -54,12 +54,12 @@ const whatsappSendMessage = async (
     throw new Error("Missing data");
 
   try {
-    const formatedPhone = formatPhone(phone)
+    const formatedPhone = formatPhone(phone);
     const response = await axios({
       url: `https://graph.facebook.com/v21.0/${BUSINESS_PHONE_NUMBER_ID}/messages`,
       method: "post",
       headers: {
-        "Authorization": `Bearer ${GRAPH_API_TOKEN}`,
+        Authorization: `Bearer ${GRAPH_API_TOKEN}`,
         "Content-Type": "application/json",
       },
       data: JSON.stringify({
@@ -81,7 +81,18 @@ const whatsappSendMessage = async (
     const business = await Business.findByPk(businessId);
     const businessName = business ? business.name : "empresa";
     const timestamp = Date.now();
-    const msgSent = await newMsgSent(businessName, "WhatsApp", chatId, message, chatId, timestamp, businessId, false, contactId, userId);
+    const msgSent = await newMsgSent(
+      businessName,
+      "WhatsApp",
+      chatId,
+      message,
+      chatId,
+      timestamp,
+      businessId,
+      false,
+      contactId,
+      userId
+    );
 
     console.log("WhatsApp: Respuesta enviada y guardada correctamente.");
     //creo objeto para emitir a app
@@ -95,7 +106,9 @@ const whatsappSendMessage = async (
     console.error(
       "Error al enviar el mensaje a WhatsApp:",
       //error.response ? error.response.data : error.message
-      error.response ? JSON.stringify(error.response.data, null, 2) : error.message
+      error.response
+        ? JSON.stringify(error.response.data, null, 2)
+        : error.message
     );
     return {
       success: false,

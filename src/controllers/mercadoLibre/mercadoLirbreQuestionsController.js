@@ -3,7 +3,7 @@
 const axios = require("axios");
 require("dotenv").config();
 
-const URL_API = process.env.URL_API;
+const URL_API = process.env.URL_API || "http://localhost:3000"; // URL de la API
 
 const mercadoLibreQuestionController = {
   getQuestions: async (accessToken) => {

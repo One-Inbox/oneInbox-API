@@ -1,7 +1,7 @@
 const passport = require("passport");
 const FacebookStrategy = require("passport-facebook").Strategy;
 require("dotenv").config();
-const URL_API = process.env.URL_API;
+const URL_API = process.env.URL_API || "http://localhost:3000";
 
 // Configuración de la estrategia de Facebook
 passport.use(

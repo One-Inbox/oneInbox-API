@@ -9,7 +9,7 @@ const tokenRenewal = require("./src/utils/tokenRenewal.js");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 3000;
-const URL_API = process.env.URL_API; //
+const URL_API = process.env.URL_API || "http://localhost:3000"; //
 
 app.listen(PORT, async () => {
   try {

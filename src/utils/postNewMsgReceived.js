@@ -1,7 +1,7 @@
 const axios = require("axios");
 require("dotenv").config();
 
-const URL_API = process.env.URL_API;
+const URL_API = process.env.URL_API || "http://localhost:3000"; // URL de la API
 //const URL = "https://electrica-mosconi-backend.onrender.com" DESARROLLO
 //const URL = "https://electrica-mosconi-backend-main.onrender.com"
 
