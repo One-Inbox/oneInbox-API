@@ -10,7 +10,7 @@ require("dotenv").config();
 
 const PORT = process.env.PORT || 3000;
 //const URL_API = process.env.URL_API || "http://localhost:3000"; //
-const URL_API = process.env.URL_API;
+const URL_API = process.env.URL_API || "https://oneinbox-api.onrender.com"; // URL de la APIS;
 
 app.listen(PORT, async () => {
   try {
