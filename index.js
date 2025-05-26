@@ -9,7 +9,8 @@ const tokenRenewal = require("./src/utils/tokenRenewal.js");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 3000;
-const URL_API = process.env.URL_API || "http://localhost:3000"; //
+//const URL_API = process.env.URL_API || "http://localhost:3000"; //
+const URL_API = process.env.URL_API;
 
 app.listen(PORT, async () => {
   try {
@@ -63,7 +64,7 @@ app.listen(PORT, async () => {
 //     console.error("Error al configurar el webhook de Telegram:", error.message);
 //   }
 // };
-console.log(URL_API);
+console.log("estoy tomadndo como URL: ", URL_API);
 
 if (!URL_API || !URL_API.startsWith("https://")) {
   console.error("La URL del webhook debe ser HTTPS y válida.");
