@@ -19,6 +19,7 @@ const postNewMsgReceived = async (msgReceivedData, res) => {
     await axios.post(`${URL_API}/newMessageReceived`, msgReceivedData);
     res && res.status(200).send("OK");
     console.log("PREGUNTA: data del mensaje recibido enviado a app");
+    console.log("Mensaje enviado, status:", response.status);
   } catch (error) {
     console.error(
       "PREGUNTA:Error al enviar datos del mensaje recibido a app",

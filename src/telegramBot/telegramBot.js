@@ -7,7 +7,8 @@ require("dotenv").config();
 
 const botToken = process.env.TELEGRAM_BOT_TOKEN;
 //const bot = new TelegramBot(botToken, {polling: true});
-const bot = new TelegramBot(botToken);
+//const bot = new TelegramBot(botToken);
+const bot = new TelegramBot(botToken, { webHook: true });
 
 const businessId = process.env.BUSINESS_ID;
 const socialMediaId = 1; //este es el id de telegram
@@ -85,6 +86,7 @@ bot.on("message", async (msg) => {
         },
       };
       console.log("TELEGRAM-PREGUNTA: creo la data para emitir");
+      const res = { status: 200 };
       await postNewMsgReceived(msgReceivedData, res);
       console.log("TELEGRAM-PREGUNTA: emito el mensaje recibido a app");
     }
