@@ -63,10 +63,12 @@ app.listen(PORT, async () => {
 //     console.error("Error al configurar el webhook de Telegram:", error.message);
 //   }
 // };
+console.log(URL_API);
 
 if (!URL_API || !URL_API.startsWith("https://")) {
   console.error("La URL del webhook debe ser HTTPS y válida.");
 } else {
+  console.log("Configurando el webhook de Telegram con URL:", URL_API);
   setTelegramWebhook(URL_API);
 }
 
