@@ -49,10 +49,11 @@ io.use((socket, next) => {
 
 server.name = "server";
 
-const URL_CLIENT =
-  process.env.URL_CLIENT || "http://localhost:5173" || "http://localhost:5174"; // URL del cliente
+const URL_CLIENT = process.env.URL_CLIENT;
+const SECUNDARY_URL_CLIENT = process.env.SECUNDARY_URL_CLIENT; // URL del cliente
 const allowedOrigins = [
   URL_CLIENT,
+  SECUNDARY_URL_CLIENT,
   "http://localhost:5173",
   "http://localhost:5174",
 ];
