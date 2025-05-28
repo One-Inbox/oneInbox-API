@@ -12,6 +12,23 @@ const PORT = process.env.PORT || 3000;
 //const URL_API = process.env.URL_API || "http://localhost:3000"; //
 const URL_API = process.env.URL_API || "https://oneinbox-api.onrender.com"; // URL de la APIS;
 
+const INSTAGRAM_REDIRECT_URI = process.env.INSTAGRAM_REDIRECT_URI;
+const INSTAGRAM_APP_ID = process.env.INSTAGRAM_APP_ID;
+const INSTAGRAM_CLIENT_SECRET = process.env.INSTAGRAM_CLIENT_SECRET;
+const INSTAGRAM_APP_NAME = process.env.INSTAGRAM_APP_NAME;
+
+const INSTAGRAM_ACCESS_TOKEN = process.env.INSTAGRAM_ACCESS_TOKEN;
+const INSTAGRAM_VERIFY_TOKEN = process.env.INSTAGRAM_VERIFY_TOKEN; // Token de verificación para Instagram
+const INSTAGRAM_ACCOUNT_ID = process.env.INSTAGRAM_ACCOUNT_ID; // ID de la cuenta de Instagram
+
+console.log("INSTAGRAM_REDIRECT_URI:", INSTAGRAM_REDIRECT_URI);
+console.log("INSTAGRAM_APP_ID: ", INSTAGRAM_APP_ID);
+console.log("INSTAGRAM_CLIENT_SECRET: ", INSTAGRAM_CLIENT_SECRET);
+console.log("INSTAGRAM_APP_NAME: ", INSTAGRAM_APP_NAME);
+console.log("INSTAGRAM_ACCESS_TOKEN: ", INSTAGRAM_ACCESS_TOKEN);
+console.log("INSTAGRAM_VERIFY_TOKEN: ", INSTAGRAM_VERIFY_TOKEN);
+console.log("INSTAGRAM_ACCOUNT_ID: ", INSTAGRAM_ACCOUNT_ID);
+
 app.listen(PORT, async () => {
   try {
     await testConnection(); //pruebo primero la conexion a la base de datos
