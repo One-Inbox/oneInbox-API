@@ -69,7 +69,7 @@ if (!URL_API || !URL_API.startsWith("https://")) {
   console.error("La URL del webhook debe ser HTTPS y válida.");
 } else {
   console.log("Configurando el webhook de Telegram con URL:", URL_API);
-  setTelegramWebhook(URL_API);
+  setTelegramWebhook(`${URL_API}/telegram/webhook`);
 }
 
 // DESARROLLO
