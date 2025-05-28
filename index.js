@@ -20,7 +20,7 @@ const INSTAGRAM_APP_NAME = process.env.INSTAGRAM_APP_NAME;
 const INSTAGRAM_ACCESS_TOKEN = process.env.INSTAGRAM_ACCESS_TOKEN;
 const INSTAGRAM_VERIFY_TOKEN = process.env.INSTAGRAM_VERIFY_TOKEN; // Token de verificación para Instagram
 const INSTAGRAM_ACCOUNT_ID = process.env.INSTAGRAM_ACCOUNT_ID; // ID de la cuenta de Instagram
-
+//variables entorno instagram
 console.log("INSTAGRAM_REDIRECT_URI:", INSTAGRAM_REDIRECT_URI);
 console.log("INSTAGRAM_APP_ID: ", INSTAGRAM_APP_ID);
 console.log("INSTAGRAM_CLIENT_SECRET: ", INSTAGRAM_CLIENT_SECRET);
