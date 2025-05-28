@@ -92,8 +92,8 @@ bot.on("message", async (msg) => {
         },
       };
       console.log("TELEGRAM-PREGUNTA: creo la data para emitir");
-      const res = { status: 200 };
-      await postNewMsgReceived(msgReceivedData, res);
+      //const res = { status: 200 };
+      await postNewMsgReceived(msgReceivedData);
       console.log("TELEGRAM-PREGUNTA: emito el mensaje recibido a app");
     }
   } catch (error) {
