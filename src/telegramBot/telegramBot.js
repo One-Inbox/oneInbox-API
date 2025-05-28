@@ -12,7 +12,8 @@ const bot = new TelegramBot(botToken);
 //   console.log("Webhook eliminado.");
 // });
 
-const businessId = process.env.BUSINESS_ID;
+const businessId =
+  process.env.BUSINESS_ID || "c3844993-dea7-42cc-8ca7-e509e27c74ce"; // Asegúrate de que este ID sea correct
 console.log("businessId en telegram bot:", businessId);
 const socialMediaId = 1; //este es el id de telegram
 
