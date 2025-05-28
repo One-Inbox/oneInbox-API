@@ -6,11 +6,11 @@ const { postNewMsgReceived } = require("../utils/postNewMsgReceived");
 require("dotenv").config();
 
 const botToken = process.env.TELEGRAM_BOT_TOKEN;
-const bot = new TelegramBot(botToken, { polling: true });
-// const bot = new TelegramBot(botToken);
-bot.deleteWebHook().then(() => {
-  console.log("Webhook eliminado.");
-});
+//const bot = new TelegramBot(botToken, { polling: true });
+const bot = new TelegramBot(botToken);
+// bot.deleteWebHook().then(() => {
+//   console.log("Webhook eliminado.");
+// });
 
 const businessId = process.env.BUSINESS_ID;
 console.log("businessId en telegram bot:", businessId);
