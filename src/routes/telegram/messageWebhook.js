@@ -112,7 +112,10 @@ module.exports = (io) => {
             icon: socialMedia.icon,
           },
         };
-        const res = { status: 200 };
+        console.log(
+          "PREGUNTA-TELEGRAM(WEBHOOK): Mensaje recibido guardado en la base de datos:",
+          msgReceivedData
+        );
         console.log(
           "TELEGRAM-PREGUNTA(WEBHOOK): creo la data para emitir con respuesta",
           res
