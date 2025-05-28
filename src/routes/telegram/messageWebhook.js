@@ -112,7 +112,11 @@ module.exports = (io) => {
             icon: socialMedia.icon,
           },
         };
-        console.log("TELEGRAM-PREGUNTA(WEBHOOK): creo la data para emitir");
+        const res = { status: 200 };
+        console.log(
+          "TELEGRAM-PREGUNTA(WEBHOOK): creo la data para emitir con respuesta",
+          res
+        );
         await postNewMsgReceived(msgReceivedData, res);
         console.log(
           "TELEGRAM-PREGUNTA(WEBHOOK): emito el mensaje recibido a app"
