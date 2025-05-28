@@ -7,10 +7,10 @@ require("dotenv").config();
 
 const botToken = process.env.TELEGRAM_BOT_TOKEN;
 //const bot = new TelegramBot(botToken, {polling: true});
-//const bot = new TelegramBot(botToken);
-const bot = new TelegramBot(botToken, { webHook: true });
+const bot = new TelegramBot(botToken);
 
 const businessId = process.env.BUSINESS_ID;
+log("businessId en telegram bot:", businessId);
 const socialMediaId = 1; //este es el id de telegram
 
 bot.on("message", async (msg) => {

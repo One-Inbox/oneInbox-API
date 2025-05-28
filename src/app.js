@@ -34,6 +34,8 @@ const allowedOrigins = [
   "http://localhost:5174",
 ];
 
+console.log("allowedOrigins:", allowedOrigins);
+
 const io = new Server(app, {
   cors: {
     origin: allowedOrigins,
