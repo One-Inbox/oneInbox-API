@@ -27,14 +27,16 @@ console.log("URL_CLIENT:", URL_CLIENT);
 const SECUNDARY_URL_CLIENT = process.env.SECUNDARY_URL_CLIENT; // URL del cliente
 console.log("SECUNDARY_URL_CLIENT:", SECUNDARY_URL_CLIENT);
 
+const allowedOrigins = [
+  URL_CLIENT,
+  SECUNDARY_URL_CLIENT,
+  "http://localhost:5173",
+  "http://localhost:5174",
+];
+
 const io = new Server(app, {
   cors: {
-    origin: [
-      URL_CLIENT,
-      SECUNDARY_URL_CLIENT, // URL del cliente
-      "http://localhost:5173",
-      "http://localhost:5174",
-    ],
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   },
@@ -56,12 +58,12 @@ io.use((socket, next) => {
 
 server.name = "server";
 
-const allowedOrigins = [
-  URL_CLIENT,
-  SECUNDARY_URL_CLIENT,
-  "http://localhost:5173",
-  "http://localhost:5174",
-];
+// const allowedOrigins = [
+//   URL_CLIENT,
+//   SECUNDARY_URL_CLIENT,
+//   "http://localhost:5173",
+//   "http://localhost:5174",
+// ];
 
 // Middleware personalizado para CORS
 server.use((req, res, next) => {
