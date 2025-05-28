@@ -21,12 +21,14 @@ bot.on("message", async (msg) => {
   const message = msg.text;
   const senderName = msg.from.first_name;
   const senderIdUser = msg.from.id;
+  const idUser = senderIdUser.toString(); // Asegurarse de que sea una cadena
   //console.log("msg: ", msg);
 
   try {
     // Buscar o crear el contacto
     const newContact = await newContactCreated(
-      senderIdUser,
+      idUser,
+      //senderIdUser,
       null,
       senderName,
       true,
