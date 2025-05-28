@@ -29,6 +29,8 @@ async function instagramWebhook(req, res) {
             continue; // Saltar este mensaje y procesar el siguiente
           }
           try {
+            console.log("message", message);
+            console.log("message.mid", message.message.mid);
             console.log("sender", message.sender);
             console.log("recipient", message.recipient);
 

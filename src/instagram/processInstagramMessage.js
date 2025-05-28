@@ -11,8 +11,12 @@ const processInstagramMessage = async (instagramMessage) => {
         "LOG: Mensaje de tipo echo recibido en processInstagramMessage. Ignorando mensaje con ID:",
         instagramMessage.message.mid
       );
-      return { success: false, error: "Mensaje filtrado por ser de tipo echo." };
+      return {
+        success: false,
+        error: "Mensaje filtrado por ser de tipo echo.",
+      };
     }
+    console.log("mensaje de instagramMessage:", instagramMessage);
 
     // Extraer datos ya procesados de instagramWebhook
     const {
@@ -31,7 +35,9 @@ const processInstagramMessage = async (instagramMessage) => {
 
     // Validación para asegurar que los datos obligatorios estén presentes
     if (!chatId || !idUser || !text || !timestamp) {
-      console.error("ERROR: Faltan datos obligatorios para procesar el mensaje.");
+      console.error(
+        "ERROR: Faltan datos obligatorios para procesar el mensaje."
+      );
       throw new Error("Faltan datos obligatorios para procesar el mensaje.");
     }
 
