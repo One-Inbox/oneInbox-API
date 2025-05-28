@@ -23,7 +23,7 @@ const server = express();
 const app = http.createServer(server);
 
 const URL_CLIENT = process.env.URL_CLIENT;
-log("URL_CLIENT:", URL_CLIENT);
+console.log("URL_CLIENT:", URL_CLIENT);
 const SECUNDARY_URL_CLIENT = process.env.SECUNDARY_URL_CLIENT; // URL del cliente
 console.log("SECUNDARY_URL_CLIENT:", SECUNDARY_URL_CLIENT);
 
