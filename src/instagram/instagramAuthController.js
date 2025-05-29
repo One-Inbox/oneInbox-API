@@ -8,7 +8,9 @@ const myBusinessId =
   process.env.BUSINESS_ID || "c3844993-dea7-42cc-8ca7-e509e27c74ce"; // Asegúrate de que este ID sea correcto
 
 async function initiateInstagramLogin(req, res) {
-  const authUrl = `https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.INSTAGRAM_APP_ID}&redirect_uri=${process.env.INSTAGRAM_REDIRECT_URI}&response_type=code&scope=instagram_business_basic%2Cinstagram_business_manage_messages%2Cinstagram_business_manage_comments%2Cinstagram_business_content_publish`;
+  const authUrl =
+    "https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=409435202162578&redirect_uri=https://oneinbox.vercel.app/&response_type=code&scope=instagram_business_basic%2Cinstagram_business_manage_messages%2Cinstagram_business_manage_comments%2Cinstagram_business_content_publish%2Cinstagram_business_manage_insights";
+  //const authUrl = `https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.INSTAGRAM_APP_ID}&redirect_uri=${process.env.INSTAGRAM_REDIRECT_URI}&response_type=code&scope=instagram_business_basic%2Cinstagram_business_manage_messages%2Cinstagram_business_manage_comments%2Cinstagram_business_content_publish`;
   res.redirect(authUrl);
 }
 
