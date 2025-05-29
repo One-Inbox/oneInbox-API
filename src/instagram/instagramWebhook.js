@@ -1,5 +1,10 @@
 const verifyRequestSignature = require("../utils/instagram/verifyRequestSignature");
 const { processInstagramMessage } = require("./processInstagramMessage");
+require("dotenv").config();
+const businessId =
+  process.env.BUSINESS_ID || "c3844993-dea7-42cc-8ca7-e509e27c74ce"; // Asegúrate de que este ID sea correct
+console.log("businessId en instagramWebhook:", businessId);
+const socialMediaId = 3; //este es el id de telegram
 
 async function instagramWebhook(req, res) {
   try {
@@ -41,11 +46,11 @@ async function instagramWebhook(req, res) {
               name: `Usuario ${message.sender.id}`,
               timestamp: message.timestamp,
               phoneNumber: null,
-              businessId: "228a060d-2374-4fcd-a4ab-6f7187dc5051",
+              businessId: businessId,
               state: "No Leidos",
               received: true,
               userName: message.recipient.id,
-              socialMediaId: 3,
+              socialMediaId: socialMediaId,
             };
 
             console.log(

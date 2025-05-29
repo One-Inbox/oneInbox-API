@@ -4,6 +4,8 @@ const { newContactCreated } = require("../utils/newContact");
 const { Business, SocialMedia } = require("../db");
 
 const processInstagramMessage = async (instagramMessage) => {
+  console.log("LOG: Iniciando el procesamiento del mensaje de Instagram...");
+
   try {
     // Verificar si el mensaje es un "echo"
     if (instagramMessage.message?.is_echo) {
