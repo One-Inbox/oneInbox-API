@@ -1,7 +1,7 @@
 const { SocialMediaActive } = require("../db");
 
 //hay que encontrar la manera de obtener el accessToken sin hardcodear el userId
-// de momento lo dejo así, pero luego hay que cambiarlo
+// de momento lo dejo así, pero luego hay que cambiarlo para que sea dinámicoS
 
 const getAccessTokenFromDB = async () => {
   try {
