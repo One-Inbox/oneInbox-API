@@ -10,7 +10,8 @@ const { SocialMediaActive, Business } = require("../../db");
 //const { addSocialMediaActiveFunction } = require("../../utils/addSocialMediaActiveFunction");
 require("dotenv").config();
 
-const businessId = process.env.BUSINESS_ID;
+const businessId =
+  process.env.BUSINESS_ID || "c3844993-dea7-42cc-8ca7-e509e27c74ce"; // Default businessId if not set in environment variables
 const socialMediaId = 5;
 
 const mercadoLibreAuthHandler = async (req, res) => {
