@@ -1,9 +1,12 @@
 const { SocialMediaActive } = require("../db");
 
+//hay que encontrar la manera de obtener el accessToken sin hardcodear el userId
+// de momento lo dejo así, pero luego hay que cambiarlo
+
 const getAccessTokenFromDB = async () => {
   try {
     const socialMediaData = await SocialMediaActive.findOne({
-      where: { userId: "232533265" }
+      where: { userId: "1043390502" },
     });
 
     if (socialMediaData) {
