@@ -2,7 +2,7 @@ require("dotenv").config();
 const axios = require("axios");
 const { newMsgSent } = require("../newMsgSent");
 const { Business } = require("../../db");
-const { formatPhone } = require("../formatPhone");
+//const { formatPhone } = require("../formatPhone");
 
 const GRAPH_API_TOKEN = process.env.GRAPH_API_TOKEN; // Usa tu token de WhatsApp Business API
 const BUSINESS_PHONE_NUMBER_ID =
@@ -54,7 +54,7 @@ const whatsappSendMessage = async (
     throw new Error("Missing data");
 
   try {
-    const formatedPhone = formatPhone(phone);
+    //const formatedPhone = formatPhone(phone);
     const response = await axios({
       url: `https://graph.facebook.com/v21.0/${BUSINESS_PHONE_NUMBER_ID}/messages`,
       method: "post",
@@ -65,8 +65,8 @@ const whatsappSendMessage = async (
       data: JSON.stringify({
         messaging_product: "whatsapp",
         recipient_type: "individual",
-        to: formatedPhone,
-        //to: phone,
+        //to: formatedPhone,
+        to: phone,
         type: "text",
         text: {
           //body: "This is a text message from backend 2",
