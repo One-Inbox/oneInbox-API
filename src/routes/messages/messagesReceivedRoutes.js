@@ -37,7 +37,7 @@ messagesReceivedRoute.get(
   "/unresponded/:contactId",
   getMessagesReceivedUnrespondedByContactHandler
 );
-messagesReceivedRoute.delete("delete/:id", deleteMsgReceivedHandler);
+messagesReceivedRoute.delete("/delete/:id", deleteMsgReceivedHandler);
 messagesReceivedRoute.delete("/delete/all", deleteAllMsgReceivedHandler);
 
 module.exports = { messagesReceivedRoute };
