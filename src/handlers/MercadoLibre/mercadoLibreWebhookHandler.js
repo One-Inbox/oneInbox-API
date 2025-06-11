@@ -58,6 +58,8 @@ const mercadoLibreWebhookHandler = async (req, res) => {
         const productId = questionDetails.item_id;
         const timestamp = new Date(questionDetails.date_created).getTime();
 
+        const externalId = `MELI-${questionDetails.id}` || null; //item agregado: Este campo puede ser opcional
+
         // aca obtenemos el nombre del producto
         const productDetails =
           await mercadoLibreQuestionController.getProductDetails(
@@ -109,6 +111,7 @@ const mercadoLibreWebhookHandler = async (req, res) => {
           questionText,
           productName,
           timestamp,
+          externalId, // item agregado: Este campo puede ser opcional
           null,
           businessId,
           "No Leidos",
@@ -130,6 +133,7 @@ const mercadoLibreWebhookHandler = async (req, res) => {
             text: msgReceived.text,
             name: msgReceived.productName,
             timestamp: msgReceived.timestamp,
+            externalId: msgReceived.externalId, //Item agregado: Este campo puede ser opcional
             phoneNumber: msgReceived.phoneNumber,
             userName: msgReceived.productId,
             BusinessId: businessId,

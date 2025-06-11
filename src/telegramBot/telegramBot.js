@@ -24,6 +24,8 @@ bot.on("message", async (msg) => {
   const senderIdUser = msg.from.id;
   const idUser = senderIdUser.toString(); // Asegurarse de que sea una cadena
   //console.log("msg: ", msg);
+  // Atributo agregado en tabla
+  const externalId = `TL-${msg.message_id}` || null; // Este campo puede ser opcional
 
   try {
     // Buscar o crear el contacto
@@ -47,6 +49,7 @@ bot.on("message", async (msg) => {
       message,
       senderName,
       timestamp,
+      externalId, //item agregado: Este campo puede ser opcional
       chatId,
       businessId,
       "No Leidos",
@@ -72,6 +75,7 @@ bot.on("message", async (msg) => {
         text: msgReceived.text,
         name: msgReceived.name,
         timestamp: msgReceived.timestamp,
+        externalId: msgReceived.externalId, // Item agregado: Este campo puede ser opcional
         phoneNumber: msgReceived.phoneNumber,
         userName: msgReceived.userName,
         BusinessId: businessId,

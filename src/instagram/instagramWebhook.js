@@ -45,6 +45,7 @@ async function instagramWebhook(req, res) {
               text: message.message.text || "",
               name: `Usuario ${message.sender.id}`,
               timestamp: message.timestamp,
+              externalId: `IG-${message.message.mid}` || null, // item agregado: Este campo puede ser opcional
               phoneNumber: null,
               businessId: businessId,
               state: "No Leidos",

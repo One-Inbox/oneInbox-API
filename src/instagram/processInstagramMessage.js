@@ -27,6 +27,7 @@ const processInstagramMessage = async (instagramMessage) => {
       text,
       name,
       timestamp,
+      externalId, // Item agregado; Este campo puede ser opcional
       phoneNumber,
       businessId,
       state,
@@ -62,6 +63,7 @@ const processInstagramMessage = async (instagramMessage) => {
       text,
       name,
       timestamp,
+      externalId, // Item agregado Este campo puede ser opcional
       phoneNumber,
       businessId,
       state,
@@ -83,6 +85,7 @@ const processInstagramMessage = async (instagramMessage) => {
         text: msgReceived.text,
         name: msgReceived.idUser,
         timestamp: msgReceived.timestamp,
+        externalId: msgReceived.externalId, // Item agregado: Este campo puede ser opcional
         phoneNumber: msgReceived.phoneNumber,
         userName: msgReceived.idUser,
         BusinessId: businessId,

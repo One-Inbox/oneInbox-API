@@ -36,6 +36,8 @@ const handleMessage = async (messageAllData) => {
     : senderPhoneNumber
     ? senderPhoneNumber
     : "Usuario";
+  // Atributo agregado en tabla
+  const externalId = `WSP-${msg.id}` || null; // item agregado: Este campo puede ser opcional
 
   try {
     // Buscar o crear el contacto
@@ -58,6 +60,7 @@ const handleMessage = async (messageAllData) => {
       message,
       senderName,
       timestamp,
+      externalId, // item agregado: Este campo puede ser opcional
       senderPhoneNumber,
       businessId,
       "No Leidos",
@@ -83,6 +86,7 @@ const handleMessage = async (messageAllData) => {
         text: msgReceived.text,
         name: msgReceived.name,
         timestamp: msgReceived.timestamp,
+        externalId: msgReceived.externalId, // Item agregado: Este campo puede ser opcional
         phoneNumber: msgReceived.phoneNumber,
         userName: msgReceived.userName,
         BusinessId: businessId,

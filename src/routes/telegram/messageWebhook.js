@@ -33,6 +33,8 @@ module.exports = (io) => {
     const messageReceived = message.text;
     const senderName = message.from.first_name;
     const senderIdUser = message.from.id.toString();
+    //atributo agregado en tabla
+    const externalId = `TL-${message.message_id}` || null; // Este campo puede ser opcional
 
     if (
       !messageReceived ||
@@ -64,6 +66,7 @@ module.exports = (io) => {
         messageReceived,
         senderName,
         timestamp,
+        externalId, // Item agregado; Este campo puede ser opcional
         chatId,
         businessId,
         "No Leidos",
@@ -93,6 +96,7 @@ module.exports = (io) => {
           text: msgReceived.text,
           name: msgReceived.name,
           timestamp: msgReceived.timestamp,
+          externalId: msgReceived.externalId, // Item agregado: Este campo puede ser opcional
           phoneNumber: msgReceived.phoneNumber,
           userName: msgReceived.userName,
           BusinessId: businessId,
