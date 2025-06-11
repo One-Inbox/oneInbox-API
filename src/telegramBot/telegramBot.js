@@ -6,15 +6,10 @@ const { postNewMsgReceived } = require("../utils/postNewMsgReceived");
 require("dotenv").config();
 
 const botToken = process.env.TELEGRAM_BOT_TOKEN;
-//const bot = new TelegramBot(botToken, { polling: true });
 const bot = new TelegramBot(botToken);
-// bot.deleteWebHook().then(() => {
-//   console.log("Webhook eliminado.");
-// });
 
 const businessId =
-  process.env.BUSINESS_ID || "c3844993-dea7-42cc-8ca7-e509e27c74ce"; // Asegúrate de que este ID sea correct
-console.log("businessId en telegram bot:", businessId);
+  process.env.BUSINESS_ID || "c3844993-dea7-42cc-8ca7-e509e27c74ce";
 const socialMediaId = 1; //este es el id de telegram
 
 bot.on("message", async (msg) => {
@@ -23,15 +18,11 @@ bot.on("message", async (msg) => {
   const senderName = msg.from.first_name;
   const senderIdUser = msg.from.id;
   const idUser = senderIdUser.toString(); // Asegurarse de que sea una cadena
-  //console.log("msg: ", msg);
-  // Atributo agregado en tabla
   const externalId = `TL-${msg.message_id}` || null; // Este campo puede ser opcional
 
   try {
-    // Buscar o crear el contacto
     const newContact = await newContactCreated(
       idUser,
-      //senderIdUser,
       null,
       senderName,
       true,
@@ -41,7 +32,6 @@ bot.on("message", async (msg) => {
       socialMediaId
     );
 
-    // Crear el mensaje recibido
     const timestamp = Date.now();
     const msgReceived = await newMsgReceived(
       chatId,
@@ -58,10 +48,6 @@ bot.on("message", async (msg) => {
       false,
       newContact,
       socialMediaId
-    );
-    console.log(
-      "PREGUNTA-TELEGRAM(BOT): Mensaje recibido guardado en la base de datos:",
-      msgReceived
     );
 
     //emito el mensaje a app
@@ -95,10 +81,8 @@ bot.on("message", async (msg) => {
           icon: socialMedia.icon,
         },
       };
-      console.log("TELEGRAM-PREGUNTA: creo la data para emitir");
-      //const res = { status: 200 };
+
       await postNewMsgReceived(msgReceivedData);
-      console.log("TELEGRAM-PREGUNTA: emito el mensaje recibido a app");
     }
   } catch (error) {
     console.error(
@@ -106,9 +90,6 @@ bot.on("message", async (msg) => {
       error
     );
   }
-
-  // // Respuesta automática (comento porque no esta funcionando)
-  // bot.sendMessage(chatId, "Hola, ¿cómo estás? ¡Gracias por tu mensaje!");
 });
 
 module.exports = { bot };

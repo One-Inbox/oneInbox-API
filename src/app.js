@@ -14,7 +14,6 @@ const {
 } = require("./utils/sentMsgFunctions/index");
 const passport = require("./config/passport");
 const session = require("express-session");
-//const { log } = require("console");
 const cookieParser = require("cookie-parser");
 
 require("dotenv").config();
@@ -23,9 +22,7 @@ const server = express();
 const app = http.createServer(server);
 
 const URL_CLIENT = process.env.URL_CLIENT;
-console.log("URL_CLIENT:", URL_CLIENT);
 const SECUNDARY_URL_CLIENT = process.env.SECUNDARY_URL_CLIENT; // URL del cliente
-console.log("SECUNDARY_URL_CLIENT:", SECUNDARY_URL_CLIENT);
 
 const allowedOrigins = [
   URL_CLIENT,
@@ -33,8 +30,6 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
 ];
-
-console.log("allowedOrigins:", allowedOrigins);
 
 const io = new Server(app, {
   cors: {
@@ -59,13 +54,6 @@ io.use((socket, next) => {
 });
 
 server.name = "server";
-
-// const allowedOrigins = [
-//   URL_CLIENT,
-//   SECUNDARY_URL_CLIENT,
-//   "http://localhost:5173",
-//   "http://localhost:5174",
-// ];
 
 // Middleware personalizado para CORS
 server.use((req, res, next) => {
@@ -117,38 +105,24 @@ io.on("connection", async (socket) => {
   const userId = socket.handshake.query.userId;
   console.log("CONEXION A SOCKET EXITOSA");
 
-  //console.log(`Received userId: ${userId}`); // Registro para depuración
-
-  if (io) {
-    io.emit("SE_EMITEN_OTRAS_COSAS", "ok");
-    // message && io.emit("NEW_MESSAGE_RECEIVED", message)
-  }
-
   server.post("/newMessageReceived", async (req, res) => {
     const messageData = await req.body;
     console.log(messageData);
     try {
       // Emitir el evento desde app con los datos recibidos
       io.emit("NEW_MESSAGE_RECEIVED", messageData);
-      // console.log(
-      //   `APP/SOCKET- PREGUNTA: Evento 'NEW_MESSAGE_RECEIVED' emitido con datos:`,
-      //   messageData
-      // );
       res.status(200).send("APP/SOCKET- PREGUNTA:Evento emitido con éxito");
     } catch (error) {
-      //console.error("APP/SOCKET- PREGUNTA: Error al emitir el evento desde app:", error);
       res.status(500).send("APP/SOCKET- PREGUNTA: Error al emitir el evento");
     }
   });
 
   if (!userId) {
-    //console.error("userId is undefined or null");
     return; // Salir si userId no está definido
   }
 
   try {
     await User.update({ socketId: socket.id }, { where: { id: userId } });
-    console.log(`Cliente conectado ${socket.id}`);
   } catch (error) {
     console.error("Error updating user:", error);
   }
@@ -159,7 +133,6 @@ io.on("connection", async (socket) => {
 });
 
 server.post("/messageSend", async (req, res) => {
-  console.log("APP-RESPUESTA body:", req.body);
   const {
     chatId,
     message,
@@ -172,7 +145,6 @@ server.post("/messageSend", async (req, res) => {
     idUser,
   } = req.body;
 
-  //console.log('en app', UserId);
   if (
     !chatId ||
     !message ||
@@ -191,39 +163,16 @@ server.post("/messageSend", async (req, res) => {
         businessId,
         contactId
       );
-      console.log(
-        "mando respuesta a telegram con data :",
-        chatId,
-        message,
-        UserId,
-        businessId,
-        contactId
-      );
       if (response.success) {
         io.emit("NEW_MESSAGE_SENT", { chatId, message, UserId });
-        console.log(
-          `APP-RESPUESTA:Evento 'NEW_MESSAGE_SENT' emitido con mensaje: ${message}`
-        );
         const msgSentData = response.msgSent;
         io.emit("ADD_NEW_MESSAGE_SENT", msgSentData);
-        console.log(
-          `APP-RESPUESTA:Evento 'ADD_NEW_MESSAGE_SENT' emitido con mensaje: ${msgSentData}`
-        );
         res.status(200).send(response.message);
       } else {
         res.status(500).send(response.message);
       }
     }
     if (IdSocialMedia === 2) {
-      console.log("data que sale desde app a funcion de whats:", {
-        chatId,
-        message,
-        UserId,
-        phone,
-        businessId,
-        contactId,
-      });
-
       const response = await whatsappSendMessage(
         chatId,
         message,
@@ -234,14 +183,8 @@ server.post("/messageSend", async (req, res) => {
       );
       if (response.success) {
         io.emit("NEW_MESSAGE_SENT", { chatId, message, UserId });
-        console.log(
-          `APP-RESPUESTA:Evento 'NEW_MESSAGE_SENT' emitido con mensaje: ${message}`
-        );
         const msgSentData = response.msgSent;
         io.emit("ADD_NEW_MESSAGE_SENT", msgSentData);
-        console.log(
-          `APP-RESPUESTA:Evento 'ADD_NEW_MESSAGE_SENT' emitido con mensaje: ${msgSentData}`
-        );
         res.status(200).send(response.message);
       } else {
         res.status(500).send(response.message);
@@ -256,18 +199,11 @@ server.post("/messageSend", async (req, res) => {
         contactId,
         idUser
       );
-      console.log("respuesta de la funcion", response);
 
       if (response.success) {
         io.emit("NEW_MESSAGE_SENT", { chatId, message, UserId });
-        console.log(
-          `APP-RESPUESTA:Evento 'NEW_MESSAGE_SENT' emitido con mensaje: ${message}`
-        );
         const msgSentData = response.msgSent;
         io.emit("ADD_NEW_MESSAGE_SENT", msgSentData);
-        console.log(
-          `APP-RESPUESTA:Evento 'ADD_NEW_MESSAGE_SENT' emitido con mensaje: ${msgSentData}`
-        );
         res.status(200).send(response.message);
       } else {
         res.status(500).send(response.message);
@@ -283,14 +219,8 @@ server.post("/messageSend", async (req, res) => {
       );
       if (response.success) {
         io.emit("NEW_MESSAGE_SENT", { chatId, message, UserId });
-        console.log(
-          `APP-RESPUESTA:Evento 'NEW_MESSAGE_SENT' emitido con mensaje: ${message}`
-        );
         const msgSentData = response.msgSent;
         io.emit("ADD_NEW_MESSAGE_SENT", msgSentData);
-        console.log(
-          `APP-RESPUESTA:Evento 'ADD_NEW_MESSAGE_SENT' emitido con mensaje: ${msgSentData}`
-        );
         res.status(200).send(response.message);
       } else {
         res.status(500).send(response.message);
@@ -305,18 +235,10 @@ server.post("/messageSend", async (req, res) => {
         businessId,
         contactId
       );
-      console.log("APP-RESPUESTA:respusta envio msj Meli", response);
-
       if (response.success) {
         io.emit("NEW_MESSAGE_SENT", { chatId, message, UserId });
-        // console.log(
-        //   `APP-RESPUESTA:Evento 'NEW_MESSAGE_SENT' emitido con mensaje: ${message}`
-        // );
         const msgSentData = response.msgSent;
         io.emit("ADD_NEW_MESSAGE_SENT", msgSentData);
-        // console.log(
-        //   `APP-RESPUESTA:Evento 'ADD_NEW_MESSAGE_SENT' emitido con mensaje: ${msgSentData}`
-        // );
         res.status(200).send(response.message);
       } else {
         res.status(500).send(response.message);

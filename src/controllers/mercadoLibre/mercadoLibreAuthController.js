@@ -37,16 +37,11 @@ const mercadoLibreAuthController = {
       );
 
       const {
-        access_token,
-        refresh_token,
-        expires_in = 21600,
-        user_id,
+        access_token, //token que permite hacer solicitudes a la API de Mercado Libre.
+        refresh_token, //Token que permite renovar el access_token cuando expire.
+        expires_in = 21600, //Tiempo en segundos hasta que expire el access_token (por defecto, 6 horas).
+        user_id, //ID del usuario en Mercado Libre.
       } = response.data;
-      console.log("MELI-AUTH: Tokens obtenidos:", response.data);
-      //  access_token → Token que permite hacer solicitudes a la API de Mercado Libre.
-      // refresh_token → Token que permite renovar el access_token cuando expire.
-      // expires_in → Tiempo en segundos hasta que expire el access_token (por defecto, 6 horas).
-      // user_id → ID del usuario en Mercado Libre.
 
       // Validar y calcular expirationDate
       if (typeof expires_in !== "number" || expires_in <= 0) {
@@ -68,7 +63,7 @@ const mercadoLibreAuthController = {
       };
     } catch (error) {
       console.error(
-        "MELI-AUTH C: Error al obtener el token de acceso:",
+        "MELI-AUTH: Error al obtener el token de acceso:",
         error.response?.data || error.message
       );
       throw new Error(
@@ -86,7 +81,7 @@ const mercadoLibreAuthController = {
       const response = await axios.post(
         "https://api.mercadolibre.com/oauth/token",
         querystring.stringify({
-          grant_type: "refresh_token", //ndica que se usa un refresh_token para obtener un nuevo access_token
+          grant_type: "refresh_token", //indica que se usa un refresh_token para obtener un nuevo access_token
           client_id: clientId,
           client_secret: clientSecret,
           refresh_token: refreshToken,

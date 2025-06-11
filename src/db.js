@@ -10,7 +10,6 @@ const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 require("dotenv").config();
 
-//const isProduction = process.env.NODE_ENV === "production";
 const DB_USER = process.env.DB_USER;
 const DB_PASSWORD = process.env.DB_PASSWORD;
 const DB_HOST = process.env.DB_HOST;
@@ -31,21 +30,6 @@ const sequelize = new Sequelize(DATABASE_URL, {
     },
   },
 });
-//db url
-// const sequelize = new Sequelize(
-//   //"postgresql://oneinboxuser:G3pJaVRqfkNfgm4eZucl4gASL6jQS2KI@dpg-cvavqvqj1k6c73922m5g-a.oregon-postgres.render.com/oneinboxdatabase",
-//   `postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
-
-//   {
-//     dialectOptions: {
-//       ssl: {
-//         require: true,
-//       },
-//     },
-//     logging: false,
-//     native: false,
-//   }
-// );
 
 UserModel(sequelize);
 ContactsModel(sequelize);

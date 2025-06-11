@@ -2,7 +2,6 @@ const { Business } = require("../../db");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-//const cookieParser = require('cookie-parser')
 const businessLogin = async (businessName, password) => {
   const JWT_SECRET_KEY =
     process.env.JWT_SECRET_KEY ||
@@ -14,14 +13,11 @@ const businessLogin = async (businessName, password) => {
     });
     if (!business) throw new Error("Business not found");
 
-    console.log("Negocio encontrado:", business.name);
-
     const token = jwt.sign(
       { id: business.id, name: business.name },
       JWT_SECRET_KEY, // Clave secreta desde el entorno
       { expiresIn: "365d" }
     );
-
     console.log("Token generado correctamente en businessLogin:", token);
     return { business, token };
   } catch (error) {

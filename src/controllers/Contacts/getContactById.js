@@ -5,7 +5,6 @@ const {
   MsgSent,
   SocialMedia,
 } = require("../../db");
-//const { Contacts, Business, MsgReceived, MsgSent} = require('../../db');
 
 const getContactById = async (id) => {
   const contact = await Contacts.findByPk(id, {

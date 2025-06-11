@@ -16,29 +16,15 @@ async function instagramWebhook(req, res) {
     const body = req.body;
 
     if (body.object === "instagram") {
-      console.log(
-        "LOG: Mensaje directo de Instagram recibido:",
-        JSON.stringify(body, null, 2)
-      );
-
       const entries = body.entry || [];
       for (const entry of entries) {
         const messaging = entry.messaging || [];
         for (const message of messaging) {
           // **Chequear si es un mensaje echo**
           if (message.message?.is_echo) {
-            console.log(
-              "LOG: Mensaje de tipo echo recibido en instagramWebhook. Ignorando mensaje con ID:",
-              message.message.mid
-            );
             continue; // Saltar este mensaje y procesar el siguiente
           }
           try {
-            console.log("message", message);
-            console.log("message.mid", message.message.mid);
-            console.log("sender", message.sender);
-            console.log("recipient", message.recipient);
-
             const instagramMessage = {
               chatId: message.message.mid,
               idUser: message.sender.id,
@@ -54,10 +40,7 @@ async function instagramWebhook(req, res) {
               socialMediaId: socialMediaId,
             };
 
-            console.log(
-              "LOG: Procesando mensaje de Instagram...",
-              instagramMessage
-            );
+            console.log("LOG: Procesando mensaje de Instagram...");
 
             const result = await processInstagramMessage(instagramMessage);
             if (!result.success) {
@@ -66,11 +49,11 @@ async function instagramWebhook(req, res) {
                 result.error
               );
             } else {
-              console.log("LOG: Mensaje procesado correctamente.");
+              console.log("IG: Mensaje procesado correctamente.");
             }
           } catch (innerError) {
             console.error(
-              "ERROR: Fallo al procesar un mensaje en la entrada:",
+              "IG ERROR: Fallo al procesar un mensaje en la entrada:",
               innerError.message
             );
           }

@@ -10,10 +10,6 @@ passport.use(
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
       callbackURL: `${URL_API}/auth/facebook/callback`,
-      //DESARROLLO
-      //callbackURL: "https://electrica-mosconi-backend.onrender.com/auth/facebook/callback",
-      //PRODUCCION:
-      //callbackURL: "https://electrica-mosconi-backend-main.onrender.com/auth/facebook/callback",
       profileFields: ["id", "displayName", "photos", "email"],
     },
     (accessToken, refreshToken, profile, done) => {

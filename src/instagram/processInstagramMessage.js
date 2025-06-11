@@ -4,22 +4,14 @@ const { newContactCreated } = require("../utils/newContact");
 const { Business, SocialMedia } = require("../db");
 
 const processInstagramMessage = async (instagramMessage) => {
-  console.log("LOG: Iniciando el procesamiento del mensaje de Instagram...");
-
   try {
     // Verificar si el mensaje es un "echo"
     if (instagramMessage.message?.is_echo) {
-      console.log(
-        "LOG: Mensaje de tipo echo recibido en processInstagramMessage. Ignorando mensaje con ID:",
-        instagramMessage.message.mid
-      );
       return {
         success: false,
         error: "Mensaje filtrado por ser de tipo echo.",
       };
     }
-    console.log("mensaje de instagramMessage:", instagramMessage);
-
     // Extraer datos ya procesados de instagramWebhook
     const {
       chatId,

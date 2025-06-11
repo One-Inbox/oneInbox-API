@@ -6,16 +6,13 @@ const { postNewMsgReceived } = require("../../utils/postNewMsgReceived");
 require("dotenv").config();
 
 const myBusinessId =
-  process.env.BUSINESS_ID || "c3844993-dea7-42cc-8ca7-e509e27c74ce"; // Asegúrate de que este ID sea correcto
-//const axios = require("axios");
+  process.env.BUSINESS_ID || "c3844993-dea7-42cc-8ca7-e509e27c74ce";
 
 const messageWebhook = Router();
 
 module.exports = (io) => {
   // Ruta para recibir mensajes
   messageWebhook.post("/webhook", async (req, res) => {
-    console.log("Webhook alcanzado al recibir un mensaje");
-
     const businessId = myBusinessId;
     const socialMediaId = 1; // ID de Telegram
 
@@ -24,7 +21,7 @@ module.exports = (io) => {
       console.error(
         "No se recibió un mensaje en el body- No hay mensaje que procesar "
       );
-      return res.status(200).send("No hay mensaje para procesar");
+      return res.status(200).send("telegram: No hay mensaje para procesar");
     }
 
     const chatId = message.chat.id.toString();
@@ -33,7 +30,6 @@ module.exports = (io) => {
     const messageReceived = message.text;
     const senderName = message.from.first_name;
     const senderIdUser = message.from.id.toString();
-    //atributo agregado en tabla
     const externalId = `TL-${message.message_id}` || null; // Este campo puede ser opcional
 
     if (
@@ -41,12 +37,13 @@ module.exports = (io) => {
       typeof messageReceived !== "string" ||
       messageReceived.trim() === ""
     ) {
-      console.log("Mensaje sin texto o vacío recibido. No se procesará.");
+      console.log(
+        "telegram: Mensaje sin texto o vacío recibido. No se procesará."
+      );
       return res.status(200).send("Mensaje sin texto. Proceso finalizado.");
     }
 
     try {
-      //       Buscar o crear el contacto
       const newContact = await newContactCreated(
         senderIdUser,
         null,
@@ -57,9 +54,8 @@ module.exports = (io) => {
         businessId,
         socialMediaId
       );
-      //        Crear el mensaje recibido
-      const timestamp = Date.now();
 
+      const timestamp = Date.now();
       const msgReceived = await newMsgReceived(
         chatId,
         senderIdUser,
@@ -76,19 +72,11 @@ module.exports = (io) => {
         newContact,
         socialMediaId
       );
-      console.log(
-        "PREGUNTA-TELEGRAM(WEBHOOK): Mensaje recibido guardado en la base de datos:",
-        msgReceived
-      );
 
       //     emito el mensaje a app
       if (msgReceived.processed) {
         const business = await Business.findByPk(businessId);
-        // if (!business) {
-        //   return res.status(404).send("Negocio no encontrado");
         const socialMedia = await SocialMedia.findByPk(socialMediaId);
-        // if (!socialMedia) {
-        //   return res.status(404).send("Red Social no encontrada");
         const msgReceivedData = {
           id: msgReceived.id,
           chatId: msgReceived.chatId,
@@ -116,18 +104,7 @@ module.exports = (io) => {
             icon: socialMedia.icon,
           },
         };
-        console.log(
-          "PREGUNTA-TELEGRAM(WEBHOOK): Mensaje recibido guardado en la base de datos:",
-          msgReceivedData
-        );
-        console.log(
-          "TELEGRAM-PREGUNTA(WEBHOOK): creo la data para emitir con respuesta",
-          res
-        );
         await postNewMsgReceived(msgReceivedData, res);
-        console.log(
-          "TELEGRAM-PREGUNTA(WEBHOOK): emito el mensaje recibido a app"
-        );
       }
     } catch (error) {
       console.error(

@@ -62,11 +62,8 @@ module.exports = (sequelize) => {
 
       state: {
         type: DataTypes.ENUM,
-        //hay que cambiar el front para usar los values en Ingles
         values: ["No Leidos", "Leidos", "Respondidos", "Archivados"],
         defaultValue: "No Leidos",
-        // values: ['New', 'Read', 'Answered', 'Archived'],
-        // defaultValue: "New",
         allowNull: false,
       },
       received: {

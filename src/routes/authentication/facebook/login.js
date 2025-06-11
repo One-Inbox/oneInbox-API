@@ -24,13 +24,11 @@ fbAuthentication.get(
 fbAuthentication.get(
   "/auth/facebook/callback",
   passport.authenticate("facebook", {
-    //failureRedirect: 'http://localhost:5173/'
     failureRedirect: URL_CLIENT,
   }),
   (req, res) => {
     // Redirigir al usuario al dashboard después del login exitoso
     res.redirect(URL_CLIENT);
-    //res.redirect('http://localhost:5173/')
   }
 );
 

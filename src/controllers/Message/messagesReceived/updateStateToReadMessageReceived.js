@@ -10,26 +10,6 @@ const updateStateToReadMessageReceived = async (id) => {
 
   message.state = "Leidos";
   await message.save();
-
-  // const messageUpdate = {
-  //     id: message.id,
-  //     chatId: message.chatId,
-  //     idUser: message.idUser,
-  //     text: message.text,
-  //     name: message.name,
-  //     timestamp: message.timestamp,
-  //     externalId: message.externalId,
-  //     phoneNumber: message.phoneNumber,
-  //     userName: message.userName,
-  //     BusinessId: message.BusinessId,
-  //     state: message.state,
-  //     received: message.received,
-  //     ContactId: message.ContactId,
-  //     SocialMediumId: message.SocialMediumId,
-  // }
-
-  console.log(message);
-
   return {
     message,
     text: `Congratulation! The state from Message Received with ID ${id} has been update to Read`,

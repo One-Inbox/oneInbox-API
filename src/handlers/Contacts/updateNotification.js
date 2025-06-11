@@ -1,15 +1,14 @@
-const contactsGet = require('../../controllers/Contacts/contactGet') 
+// const contactsGet = require('../../controllers/Contacts/contactGet')
 
+// const ContactsSearchHandler = async (req,res)=>{
+//     try {
+//         const {businessId} = req.query
+//         const contacts =  await contactsGet(businessId)
+//         res.status(200).json(contacts)
+//     } catch (error) {
+//         res.status(404).json(error.message)
+//     }
 
-const ContactsSearchHandler = async (req,res)=>{
-    try {
-        const {businessId} = req.query
-        const contacts =  await contactsGet(businessId)
-        res.status(200).json(contacts)    
-    } catch (error) {
-        res.status(404).json(error.message)
-    }
-    
-}
+// }
 
-module.exports=ContactsSearchHandler
+// module.exports=ContactsSearchHandler

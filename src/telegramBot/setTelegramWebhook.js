@@ -2,10 +2,9 @@ const { bot } = require("./telegramBot.js");
 
 const setTelegramWebhook = async (url, retries = 5, delay = 3000) => {
   try {
-    console.log("Configurando el webhook de telegram con URL:", url);
     const response = await bot.setWebHook(url);
     if (response) {
-      console.log("Webhook de telegram configurado correctamente:", response);
+      console.log("Webhook de telegram configurado correctamente");
     } else {
       console.error("Error al configurar el webhook:", error.message);
       console.log("reintentado configuracion");

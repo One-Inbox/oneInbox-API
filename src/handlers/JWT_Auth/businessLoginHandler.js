@@ -3,7 +3,6 @@ require("dotenv").config();
 
 const businessLoginHandler = async (req, res) => {
   const { businessName, password } = req.body;
-  console.log("Datos recibidos: ", { businessName, password });
   try {
     if (!businessName || !password) throw new Error("Missing Data");
     // Llama al controlador para validar y obtener el token
@@ -15,7 +14,7 @@ const businessLoginHandler = async (req, res) => {
       sameSite: "strict", // Protección CSRF
       path: "/",
     });
-    console.log("token en businessLogin guardado en la cookie", token);
+    console.log("token en businessLogin guardado en la cookie");
 
     res.status(201).json({ business });
   } catch (error) {

@@ -10,8 +10,6 @@ const mercadoLibreSendMessage = async (
   businessId,
   contactId
 ) => {
-  //console.log('MELI-RESPUESTA: props en funcion de Meli: chatId:', chatId, 'message:', message, 'userId:', userId, 'token:', accessToken, 'businessId:', businessId, 'contactId:', contactId);
-
   if (!chatId || !message || !userId || !accessToken || !businessId)
     throw new Error("Missing data");
   try {
@@ -21,10 +19,6 @@ const mercadoLibreSendMessage = async (
         question_id: chatId,
         text: message,
       }
-    );
-    console.log(
-      "MELI-RESPUESTA: Mensaje de MERCADO LIBRE enviado:",
-      response.data
     );
 
     // Guarda el mensaje enviado en la base de datos
@@ -43,8 +37,6 @@ const mercadoLibreSendMessage = async (
       contactId,
       userId
     );
-     
-    console.log("MELI: Respuesta enviada y guardada correctamente.");
     //creo objeto para emitir a app
     return {
       success: true,

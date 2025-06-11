@@ -16,8 +16,6 @@ const newMsgReceived = async (
   contact,
   socialMediaId
 ) => {
-  //console.log('contacto', contact);
-
   const [msgReceived, created] = await MsgReceived.findOrCreate({
     where: { chatId, externalId },
     defaults: {

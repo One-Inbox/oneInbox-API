@@ -17,17 +17,13 @@ const mercadoLibreWebhookHandler = async (req, res) => {
   const { topic } = req.body;
   try {
     if (topic === "items") {
-      console.log("MELI-RESPUESTA:El mensaje se ha respondido conrrectamente.");
       res.status(200).json({
         message: "MELI-RESPUESTA:El mensaje se ha respondido conrrectamente.",
       });
     } else if (topic === "questions") {
       const question = req.body;
-      console.log("mensaje recibido desde Meli", question);
       const resource = question.resource;
-      console.log("resource", resource);
       const questionId = resource.split("/").pop();
-      console.log("id de la pregunta", questionId);
       const accessToken = await getAccessTokenFromDB();
 
       if (!accessToken) {
@@ -47,9 +43,6 @@ const mercadoLibreWebhookHandler = async (req, res) => {
         );
       });
 
-      // Depurar la estructura de la respuesta
-      console.log("Detalles de la pregunta:", questionDetails);
-
       // Verificar si 'from' está definido
       if (questionDetails && questionDetails.from) {
         const buyerId = questionDetails.from.id.toString();
@@ -57,7 +50,6 @@ const mercadoLibreWebhookHandler = async (req, res) => {
         const questionText = questionDetails.text;
         const productId = questionDetails.item_id;
         const timestamp = new Date(questionDetails.date_created).getTime();
-
         const externalId = `MELI-${questionDetails.id}` || null; //item agregado: Este campo puede ser opcional
 
         // aca obtenemos el nombre del producto
@@ -68,13 +60,8 @@ const mercadoLibreWebhookHandler = async (req, res) => {
           );
         const productName = productDetails.title || "Producto sin título";
 
-        console.log(
-          `MELI-PRODUCTO: Nombre del producto obtenido: ${productName}`
-        );
-
         const existingMessage = await MsgReceived.findOne({
           where: {
-            //userName: productId,
             name: productName,
             idUser: buyerId,
             text: questionText,
@@ -94,7 +81,6 @@ const mercadoLibreWebhookHandler = async (req, res) => {
         // Creo contacto
         const newContact = await newContactCreated(
           buyerId,
-          //productId,
           productName,
           buyerName,
           true,
@@ -152,11 +138,9 @@ const mercadoLibreWebhookHandler = async (req, res) => {
               name: socialMedia.name,
               icon: socialMedia.icon,
             },
-            //productName,
           };
-          //console.log('MELI-PREGUNTA: creo la data para emitir');
+
           await postNewMsgReceived(msgReceivedData, res);
-          //console.log('MELI-PREGUNTA: emito el mensaje recibido a app');
         }
       } else {
         console.error(

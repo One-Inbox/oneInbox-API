@@ -1,6 +1,5 @@
 const { Business } = require("../../db");
 
-//const createBusiness = async (name, password, address, city, country, email, phone, srcName, userId, contactId, socialMediaActiveId, msgReceivedId) => {
 const createBusiness = async (
   name,
   password,
@@ -23,7 +22,6 @@ const createBusiness = async (
       country,
       email,
       phone,
-      // srcName,
     },
   });
 
@@ -32,9 +30,6 @@ const createBusiness = async (
   socialMediaActiveId &&
     (await newBusiness.addSocialMediaActive(socialMediaActiveId));
   msgReceivedId && (await newBusiness.setMsgReceived(msgReceivedId));
-
-  // console.log('newBusiness', newBusiness);
-
   return newBusiness;
 };
 

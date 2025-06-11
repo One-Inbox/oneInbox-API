@@ -1,5 +1,4 @@
 //controlador (mercadoLibreQuestionController) que gestiona la interacción con la API de Mercado Libre para obtener preguntas, detalles de preguntas, detalles de productos y registrar un webhook para recibir notificaciones de nuevas preguntas.
-
 const axios = require("axios");
 require("dotenv").config();
 
@@ -45,8 +44,7 @@ const mercadoLibreQuestionController = {
         }
       );
       console.log(
-        `MELI-PREGUNTA CONTROLLER: Detalles de la pregunta ${questionId} obtenidos exitosamente.`,
-        response.data
+        `MELI-PREGUNTA CONTROLLER: Detalles de la pregunta ${questionId} obtenidos exitosamente.`
       );
 
       return response.data;
@@ -74,8 +72,7 @@ const mercadoLibreQuestionController = {
         }
       );
       console.log(
-        `MELI-PRODUCTO: Detalles del producto ${itemId} obtenidos exitosamente.`,
-        response.data
+        `MELI-PRODUCTO: Detalles del producto ${itemId} obtenidos exitosamente.`
       );
       return response.data;
     } catch (error) {
@@ -102,11 +99,6 @@ const mercadoLibreQuestionController = {
           topic: "questions",
           application_id: applicationId,
           url: `${URL_API}/mercadolibre/webhook`,
-          //DESARROLLO
-          //url: "https://electrica-mosconi-backend.onrender.com/mercadolibre/webhook",
-          //PRODUCCION
-          //url: "https://electrica-mosconi-backend-main.onrender.com/mercadolibre/webhook",
-
           mode: "self",
         },
         {
@@ -115,7 +107,7 @@ const mercadoLibreQuestionController = {
           },
         }
       );
-      console.log("MELI-PREGUNTA:Webhook registrado:", response.data);
+      console.log("MELI-PREGUNTA:Webhook registrado");
     } catch (error) {
       console.error(
         "MELI-PREGUNTA:Error al registrar el webhook:",

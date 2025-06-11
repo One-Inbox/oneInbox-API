@@ -23,9 +23,7 @@ const BUSINESS_PHONE_NUMBER_ID =
 
 const handleMessage = async (messageAllData) => {
   const msg = messageAllData.messages[0];
-  console.log("datos mensaje: ", msg);
   const dataContact = messageAllData.contacts[0];
-  console.log("datos contacto: ", dataContact);
 
   const chatId = msg.id; //deberia se  msg.id, pero hayque cambiar el modelo contacto, ya que es un string y no un numero(bigInt)
   const message = msg.text.body;
@@ -36,7 +34,6 @@ const handleMessage = async (messageAllData) => {
     : senderPhoneNumber
     ? senderPhoneNumber
     : "Usuario";
-  // Atributo agregado en tabla
   const externalId = `WSP-${msg.id}` || null; // item agregado: Este campo puede ser opcional
 
   try {
@@ -106,9 +103,7 @@ const handleMessage = async (messageAllData) => {
           icon: socialMedia.icon ? socialMedia.icon : socialMediaData.icon,
         },
       };
-      console.log("WHATSAPP-PREGUNTA: creo la data para emitir");
       await postNewMsgReceived(msgReceivedData, null);
-      console.log("WHATSAPP-PREGUNTA: emito el mensaje recibido a app");
     }
   } catch (error) {
     console.error(

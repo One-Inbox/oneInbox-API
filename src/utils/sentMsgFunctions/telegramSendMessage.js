@@ -4,7 +4,6 @@ require("dotenv").config();
 
 const botToken = process.env.TELEGRAM_BOT_TOKEN;
 
-//const bot = new TelegramBot(botToken, {polling: true});
 const bot = new TelegramBot(botToken);
 
 const telegramSendMessage = async (
@@ -14,14 +13,6 @@ const telegramSendMessage = async (
   businessId,
   contactId
 ) => {
-  console.log(
-    "recibo en telegramSendMessage",
-    chatId,
-    message,
-    userId,
-    businessId,
-    contactId
-  );
   try {
     // Envía el mensaje
     await bot.sendMessage(chatId, message);
@@ -40,11 +31,6 @@ const telegramSendMessage = async (
       false,
       contactId,
       userId
-    );
-
-    console.log(
-      "TELEGRAM: Respuesta enviada y guardada correctamente, con data",
-      msgSent
     );
     //retorno un objeto para emitir a app
     return {
