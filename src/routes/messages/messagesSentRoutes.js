@@ -9,6 +9,6 @@ const {
 const messagesSentRoute = Router();
 
 messagesSentRoute.get("/", getAllMessagesSentHandler);
-messagesSentRoute.delete("/:id", deleteMsgSentHandler);
+messagesSentRoute.delete("delete/:id", deleteMsgSentHandler);
 
 module.exports = { messagesSentRoute };

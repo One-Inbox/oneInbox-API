@@ -17,6 +17,9 @@ const {
 const {
   deleteMsgReceivedHandler,
 } = require("../../handlers/Message/messagesReceived/deleteMsgRecievedHandler");
+const {
+  deleteAllMsgReceivedHandler,
+} = require("../../handlers/Message/messagesReceived/deleteAllMsgReceivedHandler");
 
 const messagesReceivedRoute = Router();
 
@@ -34,7 +37,7 @@ messagesReceivedRoute.get(
   "/unresponded/:contactId",
   getMessagesReceivedUnrespondedByContactHandler
 );
-messagesReceivedRoute.delete("/:id", deleteMsgReceivedHandler);
+messagesReceivedRoute.delete("delete/:id", deleteMsgReceivedHandler);
 messagesReceivedRoute.delete("/delete/all", deleteAllMsgReceivedHandler);
 
 module.exports = { messagesReceivedRoute };
