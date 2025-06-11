@@ -1,8 +1,11 @@
-const {Router} =require('express');
-const {getAllMessagesSentHandler} = require('../../handlers/Message/messagesSent/getAllMessagesSentHandler');
+const { Router } = require("express");
+const {
+  getAllMessagesSentHandler,
+} = require("../../handlers/Message/messagesSent/getAllMessagesSentHandler");
 
-const messagesSentRoute= Router();
+const messagesSentRoute = Router();
 
-messagesSentRoute.get('/', getAllMessagesSentHandler);
+messagesSentRoute.get("/", getAllMessagesSentHandler);
+messagesSentRoute.delete("/:id", deleteMsgSentHandler);
 
-module.exports = {messagesSentRoute}
+module.exports = { messagesSentRoute };

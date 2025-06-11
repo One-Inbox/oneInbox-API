@@ -1,15 +1,15 @@
-const {MsgSent} = require('../../db')
+// const {MsgSent} = require('../../db')
 
-const messageSendSearch = async({BusinessId,ContactId}) =>{
-    if(!BusinessId && !ContactId) throw new Error("Missing Data")
-    
-    const messagesSend = await MsgSent.findAll({where:{
-        BusinessId:BusinessId,
-        ContactId:ContactId
-    }})
+// const messageSendSearch = async({BusinessId,ContactId}) =>{
+//     if(!BusinessId && !ContactId) throw new Error("Missing Data")
 
-    return messagesSend
-    
-}
+//     const messagesSend = await MsgSent.findAll({where:{
+//         BusinessId:BusinessId,
+//         ContactId:ContactId
+//     }})
 
-module.exports = messageSendSearch
+//     return messagesSend
+
+// }
+
+// module.exports = messageSendSearch
