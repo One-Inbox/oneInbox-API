@@ -1,11 +1,11 @@
 const {
   deleteMsgSentById,
-} = require("../../.../controllers/Message/messagesSent/deleteMsgSentById");
+} = require("../../../controllers/Message/messagesSent/deleteMsgSentById");
 
-const deleteSentHandler = async (req, res) => {
+const deleteMsgSentHandler = async (req, res) => {
   await deleteMsgSentById(req, res);
 };
 
 module.exports = {
-  deleteSentHandler,
+  deleteMsgSentHandler,
 };

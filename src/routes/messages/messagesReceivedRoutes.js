@@ -19,7 +19,7 @@ const {
 } = require("../../handlers/Message/messagesReceived/getMessagesReceivedUnrespondedByContactHandler");
 const {
   deleteMsgReceivedHandler,
-} = require("../../handlers/Message/messagesReceived/deleteMsgReceivedHandler");
+} = require("../../handlers/Message/messagesReceived/deleteMsgRecievedHandler");
 
 const messagesReceivedRoute = Router();
 
