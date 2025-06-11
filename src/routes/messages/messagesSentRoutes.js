@@ -13,6 +13,6 @@ const messagesSentRoute = Router();
 
 messagesSentRoute.get("/", getAllMessagesSentHandler);
 messagesSentRoute.delete("/delete/:id", deleteMsgSentHandler);
-messagesSentRoute.delete("/delete", deleteAllMsgSentHandler);
+// messagesSentRoute.delete("/delete", deleteAllMsgSentHandler);
 
 module.exports = { messagesSentRoute };

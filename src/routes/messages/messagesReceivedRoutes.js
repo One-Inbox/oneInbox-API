@@ -38,6 +38,6 @@ messagesReceivedRoute.get(
   getMessagesReceivedUnrespondedByContactHandler
 );
 messagesReceivedRoute.delete("/delete/:id", deleteMsgReceivedHandler);
-messagesReceivedRoute.delete("/delete", deleteAllMsgReceivedHandler);
+// messagesReceivedRoute.delete("/delete", deleteAllMsgReceivedHandler);
 
 module.exports = { messagesReceivedRoute };
