@@ -2,6 +2,7 @@ const { MsgReceived } = require("../../../db");
 const deleteAllMsgReceived = async (req, res) => {
   try {
     const messages = await MsgReceived.findAll();
+    console.log("Mensajes recibidos encontrados:", messages.length);
 
     if (!messages || !messages.length) {
       return res.status(404).json({
