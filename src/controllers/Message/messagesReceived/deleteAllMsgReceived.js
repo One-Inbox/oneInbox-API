@@ -1,17 +1,13 @@
 const { MsgReceived } = require("../../../db");
 const deleteAllMsgReceived = async (req, res) => {
   try {
-    const messages = await MsgReceived.findAll();
-    console.log("Mensajes recibidos encontrados:", messages.length);
+    const count = await MsgReceived.destroy({ where: {} });
 
-    if (!messages || !messages.length) {
+    if (!count) {
       return res.status(404).json({
         message: "No se encontraron mensajes recibidos",
       });
     }
-
-    // Elimina el registro
-    await messages.destroy();
 
     return res.status(200).json({
       message: `se vacio la bandeja de entrada de mensajes recibidos`,
