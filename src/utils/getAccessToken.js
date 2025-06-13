@@ -6,7 +6,7 @@ const { SocialMediaActive } = require("../db");
 const getAccessTokenFromDB = async () => {
   try {
     const socialMediaData = await SocialMediaActive.findOne({
-      where: { userId: "1043390502" },
+      where: { userId: "357777393" },
     });
 
     if (socialMediaData) {
