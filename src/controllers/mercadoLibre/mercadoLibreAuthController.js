@@ -122,7 +122,6 @@ const mercadoLibreAuthController = {
     try {
       const socialMediaActive = await SocialMediaActive.findOne({
         where: {
-          dataUser: "Mercado Libre",
           userId: userId,
           socialMediaId: 5,
           active: true,
