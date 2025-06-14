@@ -1,6 +1,7 @@
 const {
   mercadoLibreQuestionController,
 } = require("../../controllers/mercadoLibre/mercadoLirbreQuestionsController");
+//const mercadoLibreAuthController = require("../../controllers/mercadoLibre/mercadoLibreAuthController");
 
 const mercadoLibreRegisterWebhookHandler = async (req, res) => {
   try {
@@ -9,16 +10,17 @@ const mercadoLibreRegisterWebhookHandler = async (req, res) => {
       console.error(
         "MELI-PREGUNTA:Parámetros de MERCADO LIBRE en REGISTER WEBHOOK HANDLER faltantes"
       );
-      return res
-        .status(400)
-        .json({
-          message:
-            "Token de acceso, userId y applicationId de meli son requeridos.",
-        });
+      return res.status(400).json({
+        message:
+          "Token de acceso, userId y applicationId de meli son requeridos.",
+      });
     }
-
+    // const idUser = "357777393";
+    // const newAccessToken =
+    //   await mercadoLibreAuthController.checkAndRefreshToken(idUser);
     await mercadoLibreQuestionController.registerWebhook(
-      accessToken,
+      //accessToken,
+      newAccessToken,
       userId,
       applicationId
     );

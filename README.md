@@ -5,7 +5,8 @@
 - [ ] Actualizar `express-openid-connect` cuando esté disponible una versión segura.
 - [ ] Evitar el uso de `npm audit fix --force` por posibles incompatibilidades con `node-telegram-bot-api`.
 - [ ] Todos los archivos que lo requieren tienen el BusinessId hardcodeado, se intento colocar como variable de entorno, pero no la reconocia - para pruebas quedara asi, mas adelante hay que desarrollar un flujo que recoja ese businessId desde el loguin - mientras intentare que se pueda guardar y utilizar correcatamente desde la variable de entorno
-- [X] getAccessToken tiene el userId harcodeado, hay que cambiarlo manualmente al iniciar sesion con MeLi - para pruebas quedara asi, mas adelante hay que desarrollar una funcion que encuentre ese userId
+- [X] getAccessToken/mercadoLibreQuestionHandler/updateSocialMediaActiveHandler tiene el userId harcodeado, hay que cambiarlo manualmente al iniciar sesion con MeLi - para pruebas quedara asi,
+- [ ] desarrollar una funcion que encuentre ese userId y ejecutarla en los archivos que este hardcodeado
 - [ ] GRAPH_API_TOKEN = El token de wsp vence a principios de Agosto/2025; hay que renovarlo y cambiarlo en las variables de entorno (desarrollo y produccion); hay que generar un token de larga duración (expira en 60 dias):
     1- generar un token corto de usuario en Graph API Explorer (https://developers.facebook.com/tools/explorer/)
     2- generar el token de larga duración en Postman o Thunder Client:

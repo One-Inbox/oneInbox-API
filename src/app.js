@@ -15,6 +15,7 @@ const {
 const passport = require("./config/passport");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
+const mercadoLibreAuthController = require("./controllers/mercadoLibre/mercadoLibreAuthController");
 
 require("dotenv").config();
 
@@ -227,11 +228,15 @@ server.post("/messageSend", async (req, res) => {
       }
     }
     if (IdSocialMedia === 5) {
+      // const idUser = "357777393";
+      // const newAccessToken =
+      //   await mercadoLibreAuthController.checkAndRefreshToken(idUser);
       const response = await mercadoLibreSendMessage(
         chatId,
         message,
         UserId,
         accessToken,
+        //newAccessToken,
         businessId,
         contactId
       );

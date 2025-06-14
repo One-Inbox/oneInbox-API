@@ -2,10 +2,12 @@ const {
   mercadoLibreQuestionController,
 } = require("../../controllers/mercadoLibre/mercadoLirbreQuestionsController");
 const { getAccessTokenFromDB } = require("../../utils/getAccessToken");
-
+//const mercadoLibreAuthController = require("../../controllers/mercadoLibre/mercadoLibreAuthController");
 // Handler para obtener preguntas!
 const mercadoLibreQuestionHandler = async (req, res) => {
   try {
+    // const idUser = "357777393";
+    // await mercadoLibreAuthController.checkAndRefreshToken(idUser);
     const accessToken = await getAccessTokenFromDB();
     console.log(
       "MELI-PREGUNTA:AccessToken de MERCADO LIBRE en QUESTION HANDLER obtenido:"
@@ -15,12 +17,9 @@ const mercadoLibreQuestionHandler = async (req, res) => {
       console.error(
         "MELI-PREGUNTA:AccessToken de MERCADO LIBRE en QUESTION HANDLER no está disponible."
       );
-      return res
-        .status(404)
-        .json({
-          message:
-            "El accessToken es requerido pero no se encuentra disponible.",
-        });
+      return res.status(404).json({
+        message: "El accessToken es requerido pero no se encuentra disponible.",
+      });
     }
 
     const questions = await mercadoLibreQuestionController.getQuestions(

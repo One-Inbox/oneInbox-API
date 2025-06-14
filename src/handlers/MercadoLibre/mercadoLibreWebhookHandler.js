@@ -7,11 +7,13 @@ const { newContactCreated } = require("../../utils/newContact");
 const { newMsgReceived } = require("../../utils/newMsgReceived");
 const { postNewMsgReceived } = require("../../utils/postNewMsgReceived");
 const { getAccessTokenFromDB } = require("../../utils/getAccessToken");
+const mercadoLibreAuthController = require("../../controllers/mercadoLibre/mercadoLibreAuthController");
 require("dotenv").config();
 
 const businessId =
   process.env.BUSINESS_ID || "c3844993-dea7-42cc-8ca7-e509e27c74ce";
 const socialMediaId = 5;
+const idUser = "357777393";
 
 const mercadoLibreWebhookHandler = async (req, res) => {
   const { topic } = req.body;
@@ -21,6 +23,7 @@ const mercadoLibreWebhookHandler = async (req, res) => {
         message: "MELI-RESPUESTA:El mensaje se ha respondido conrrectamente.",
       });
     } else if (topic === "questions") {
+      // await mercadoLibreAuthController.checkAndRefreshToken(idUser);
       const question = req.body;
       const resource = question.resource;
       const questionId = resource.split("/").pop();
@@ -35,8 +38,11 @@ const mercadoLibreWebhookHandler = async (req, res) => {
             "MELI-PREGUNTA:El accessToken es requerido pero no se encuentra disponible.",
         });
       }
+      console.log("AccessToken:", accessToken);
+      console.log("QuestionId:", questionId);
 
       const questionDetails = await retryOperation(async () => {
+        await mercadoLibreAuthController.checkAndRefreshToken(idUser);
         return mercadoLibreQuestionController.getQuestionDetails(
           questionId,
           accessToken

@@ -12,7 +12,7 @@ const addSocialMediaActive = async (
   businessId,
   userId
 ) => {
-  console.log("businessId recibido en controller:", businessId);
+  // console.log("businessId recibido en controller:", businessId);
 
   try {
     if (!dataUser || !businessId || !socialMediaId)
