@@ -8,16 +8,36 @@ const { newMsgReceived } = require("../../utils/newMsgReceived");
 const { postNewMsgReceived } = require("../../utils/postNewMsgReceived");
 const { getAccessTokenFromDB } = require("../../utils/getAccessToken");
 const mercadoLibreAuthController = require("../../controllers/mercadoLibre/mercadoLibreAuthController");
+const { SocialMediaActive } = require("../../db");
+const {
+  mercadoLibreOrdersController,
+} = require("../../controllers/mercadoLibre/mercadoLibreOrdersController");
 require("dotenv").config();
 
 const businessId =
   process.env.BUSINESS_ID || "c3844993-dea7-42cc-8ca7-e509e27c74ce";
 const socialMediaId = 5;
-const idUser = "357777393";
+//const idUser = "357777393";
 
 const mercadoLibreWebhookHandler = async (req, res) => {
   const { topic } = req.body;
   try {
+    const accessToken = await getAccessTokenFromDB();
+    if (!accessToken) {
+      return res.status(404).json({
+        message:
+          "MELI: El accessToken es requerido pero no se encuentra disponible.",
+      });
+    }
+    const socialMediaUser = await SocialMediaActive.findOne({
+      where: { socialMediaId: socialMediaId, accessToken: accessToken },
+    });
+    if (!socialMediaUser) {
+      return res.status(404).json({
+        message: `no hay red social asociada a este token: ${accessToken}`,
+      });
+    }
+    const idUser = socialMediaUser.userId;
     if (topic === "items") {
       res.status(200).json({
         message: "MELI-RESPUESTA:El mensaje se ha respondido conrrectamente.",
@@ -27,17 +47,17 @@ const mercadoLibreWebhookHandler = async (req, res) => {
       const question = req.body;
       const resource = question.resource;
       const questionId = resource.split("/").pop();
-      const accessToken = await getAccessTokenFromDB();
+      // const accessToken = await getAccessTokenFromDB();
 
-      if (!accessToken) {
-        console.error(
-          "MELI-PREGUNTA:AccessToken no está disponible en WEBHOOK HANDLER."
-        );
-        return res.status(404).json({
-          message:
-            "MELI-PREGUNTA:El accessToken es requerido pero no se encuentra disponible.",
-        });
-      }
+      // if (!accessToken) {
+      //   console.error(
+      //     "MELI-PREGUNTA:AccessToken no está disponible en WEBHOOK HANDLER."
+      //   );
+      //   return res.status(404).json({
+      //     message:
+      //       "MELI-PREGUNTA:El accessToken es requerido pero no se encuentra disponible.",
+      //   });
+      // }
       console.log("AccessToken:", accessToken);
       console.log("QuestionId:", questionId);
 
@@ -156,6 +176,9 @@ const mercadoLibreWebhookHandler = async (req, res) => {
           message: `MELI-PREGUNTA: El objeto 'from' no se encontró en la respuesta de la pregunta: ${questionId}`,
         });
       }
+    } else if (topic === "orders_v2") {
+      await mercadoLibreOrdersController(accessToken, idUser);
+      return res.status(200).json({ message: "Orden procesada" });
     } else {
       res
         .status(200)

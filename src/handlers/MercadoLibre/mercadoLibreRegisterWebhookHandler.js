@@ -19,8 +19,8 @@ const mercadoLibreRegisterWebhookHandler = async (req, res) => {
     // const newAccessToken =
     //   await mercadoLibreAuthController.checkAndRefreshToken(idUser);
     await mercadoLibreQuestionController.registerWebhook(
-      //accessToken,
-      newAccessToken,
+      accessToken,
+      //newAccessToken,
       userId,
       applicationId
     );
