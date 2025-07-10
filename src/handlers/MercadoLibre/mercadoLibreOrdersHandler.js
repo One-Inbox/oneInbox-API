@@ -31,4 +31,4 @@ const mercadoLibreOrdersHanlder = async (req, res) => {
   }
 };
 
-export default { mercadoLibreOrdersHanlder };
+module.exports = { mercadoLibreOrdersHanlder };
