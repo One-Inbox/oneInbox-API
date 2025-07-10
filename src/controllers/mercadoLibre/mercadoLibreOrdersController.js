@@ -42,4 +42,4 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
     }
   }
 };
-export default { mercadoLibreOrdersController };
+module.exports = { mercadoLibreOrdersController };
