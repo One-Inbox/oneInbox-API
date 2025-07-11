@@ -36,6 +36,13 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
         businessId,
         socialMediaId
       );
+
+      const responseM = await axios.get(
+        `https://api.mercadolibre.com/messages/orders/${orderId}?access_token=${accessToken}`
+      );
+      if (!responseM) throw new Error("no hay mensajes asociados a esta orden");
+      const messages = responseM.data.messages;
+      console.log("mensajes: ", messages);
     } catch (error) {
       console.error(`Error procesando orden ${order.id}:`, err.message);
       continue;
