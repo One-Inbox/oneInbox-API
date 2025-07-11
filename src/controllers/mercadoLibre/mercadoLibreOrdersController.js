@@ -18,24 +18,24 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
   if (!accessToken || !idUser) throw new Error("Missing data");
   const business = await Business.findByPk(businessId);
   const socialMedia = await SocialMedia.findByPk(socialMediaId);
-  // const response = await axios.get(
-  //   `https://api.mercadolibre.com/orders/search?seller=${idUser}&order.status=paid,delivered&access_token=${accessToken}`
-  // );
-  const estados = ["paid", "delivered"];
-  let allOrders = [];
+  const response = await axios.get(
+    `https://api.mercadolibre.com/orders/search?seller=${idUser}&order.status=paid&access_token=${accessToken}`
+  );
+  // const estados = ["paid", "delivered"];
+  // let allOrders = [];
 
-  for (const estado of estados) {
-    const response = await axios.get(
-      `https://api.mercadolibre.com/orders/search?seller=${idUser}&order.status=${estado}&access_token=${accessToken}`
-    );
-    allOrders.push(...response.data.results);
-  }
+  // for (const estado of estados) {
+  //   const response = await axios.get(
+  //     `https://api.mercadolibre.com/orders/search?seller=${idUser}&order.status=${estado}&access_token=${accessToken}`
+  //   );
+  //   allOrders.push(...response.data.results);
+  // }
 
   if (!response.data || response.data.results.length === 0) {
     throw new Error("There is no order with paid status for this user");
   }
   const orders = response.data.results;
-  //console.log("ordenes: ", orders);
+  console.log("ordenes: ", orders);
 
   for (const order of orders) {
     console.log("estado de la orden: ", order.status);
