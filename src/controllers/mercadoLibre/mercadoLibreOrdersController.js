@@ -29,7 +29,7 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
 
   for (const order of orders) {
     try {
-      const orderId = order.id.toString();
+      const orderId = (order.pack_id || order.id).toString();
       const buyer = order.buyer;
       const userId = buyer.id.toString();
       const userName = buyer.nickname || `Usuario_${userId}`;
