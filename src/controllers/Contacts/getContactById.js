@@ -28,6 +28,8 @@ const getContactById = async (id) => {
           "Email",
           "state",
           "received",
+          "idSeller",
+          "idBuyer",
         ],
       },
       {

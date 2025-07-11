@@ -134,6 +134,8 @@ const mercadoLibreWebhookHandler = async (req, res) => {
           true,
           productId,
           false,
+          null, // idSeller: item agregado: Este campo puede ser opcional
+          null, // idBuyer: item agregado: Este campo puede ser opcional
           newContact,
           socialMediaId
         );

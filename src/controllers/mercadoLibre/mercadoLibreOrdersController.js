@@ -41,6 +41,7 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
     console.log("estado de la orden: ", order.status);
     try {
       const orderId = (order.pack_id || order.id).toString();
+      console.log("orderId:", orderId);
 
       const responseM = await axios.get(
         `https://api.mercadolibre.com/messages/orders/${orderId}?access_token=${accessToken}`
@@ -59,6 +60,7 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
         order.order_items.length > 1
           ? `${order.order_items[0].item.title} + otros`
           : order.order_items[0].item.title;
+
       const buyer = order.buyer;
       const userId = buyer.id.toString();
       const userName =
@@ -67,6 +69,10 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
       const name =
         `${buyer.nickname} -COMPRA: ${product}` ||
         `Usuario_${userId} -COMPRA: ${product}`;
+      console.log("comprador y producto:", name);
+
+      const idSeller = order.seller.id;
+      const idBuyer = buyer.id;
 
       const newContact = await newContactCreated(
         userId,
@@ -101,6 +107,8 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
           true,
           userName,
           false,
+          idSeller,
+          idBuyer,
           newContact,
           socialMediaId
         );

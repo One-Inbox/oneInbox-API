@@ -13,6 +13,8 @@ const newMsgReceived = async (
   received,
   userName,
   processed,
+  idSeller,
+  idBuyer,
   contact,
   socialMediaId
 ) => {
@@ -31,6 +33,8 @@ const newMsgReceived = async (
       received,
       userName,
       processed,
+      idSeller,
+      idBuyer,
     },
   });
 
@@ -43,6 +47,8 @@ const newMsgReceived = async (
       received,
       userName,
       processed,
+      idSeller,
+      idBuyer,
     });
     await msgReceived.update({ processed: true });
   }

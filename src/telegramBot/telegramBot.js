@@ -46,6 +46,8 @@ bot.on("message", async (msg) => {
       true,
       null,
       false,
+      null, // idSeller: item agregado: Este campo puede ser opcional
+      null, // idBuyer: item agregado: Este campo puede ser opcional
       newContact,
       socialMediaId
     );

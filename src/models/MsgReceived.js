@@ -76,6 +76,16 @@ module.exports = (sequelize) => {
         allowNull: false,
         defaultValue: false, // por defecto esta en false y se deberia actualizar a true cuando se procese y guarde el msj
       },
+      idSeller: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: null,
+      },
+      idBuyer: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: null,
+      },
     },
     { timestamps: false }
   );

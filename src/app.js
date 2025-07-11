@@ -144,6 +144,8 @@ server.post("/messageSend", async (req, res) => {
     phone,
     contactId,
     idUser,
+    idSeller,
+    idBuyer,
   } = req.body;
 
   if (
@@ -228,17 +230,15 @@ server.post("/messageSend", async (req, res) => {
       }
     }
     if (IdSocialMedia === 5) {
-      // const idUser = "357777393";
-      // const newAccessToken =
-      //   await mercadoLibreAuthController.checkAndRefreshToken(idUser);
       const response = await mercadoLibreSendMessage(
         chatId,
         message,
         UserId,
         accessToken,
-        //newAccessToken,
         businessId,
-        contactId
+        contactId,
+        idSeller,
+        idBuyer
       );
       if (response.success) {
         io.emit("NEW_MESSAGE_SENT", { chatId, message, UserId });

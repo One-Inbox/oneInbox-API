@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { newMsgSent } = require("../newMsgSent");
-const { Business } = require("../../db");
+const { Business, MsgSent, MsgReceived } = require("../../db");
 
 const mercadoLibreSendMessage = async (
   chatId,
@@ -8,18 +8,38 @@ const mercadoLibreSendMessage = async (
   userId,
   accessToken,
   businessId,
-  contactId
+  contactId,
+  idSeller,
+  idBuyer
 ) => {
   if (!chatId || !message || !userId || !accessToken || !businessId)
     throw new Error("Missing data");
   try {
-    const response = await axios.post(
-      `https://api.mercadolibre.com/answers?access_token=${accessToken}`,
-      {
-        question_id: chatId,
-        text: message,
-      }
-    );
+    const originMessage =
+      idSeller !== null || idBuyer !== null ? "questions" : "orders";
+
+    if (originMessage === "orders") {
+      console.log(
+        "estoy respondiendo a un mensaje de Meli de un articulo comprado"
+      );
+      const response = await axios.post(
+        `https://api.mercadolibre.com/messages/orders/${chatId}/messages?access_token=${accessToken}`,
+        {
+          from: { user_id: idSeller },
+          to: { user_id: idBuyer },
+          text: { plain: message },
+        }
+      );
+    } else {
+      console.log("estoy respondiendo a una pregunta de Meli");
+      const response = await axios.post(
+        `https://api.mercadolibre.com/answers?access_token=${accessToken}`,
+        {
+          question_id: chatId,
+          text: message,
+        }
+      );
+    }
 
     // Guarda el mensaje enviado en la base de datos
     const business = await Business.findByPk(businessId);
