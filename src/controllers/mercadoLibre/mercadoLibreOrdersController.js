@@ -41,6 +41,20 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
     console.log("estado de la orden: ", order.status);
     try {
       const orderId = (order.pack_id || order.id).toString();
+
+      const responseM = await axios.get(
+        `https://api.mercadolibre.com/messages/orders/${orderId}?access_token=${accessToken}`
+      );
+      if (!responseM.data || responseM.data.messages.length === 0)
+        throw new Error("no hay mensajes asociados a esta orden");
+      const allMessages = responseM.data.messages;
+      const messages =
+        allMessages &&
+        allMessages.filter((message) => message.from.role === "buyer");
+      if (!messages || messages.length === 0)
+        throw new Error("no hay mensajes del comprador en esta orden");
+      console.log("mensajes: ", messages);
+
       const product =
         order.order_items.length > 1
           ? `${order.order_items[0].item.title} + otros`
@@ -50,8 +64,6 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
       const userName =
         `${buyer.nickname} -COMPRA: ${product}` ||
         `Usuario_${userId} -COMPRA: ${product}`;
-      //console.log("user name:", userName);
-
       const name =
         `${buyer.nickname} -COMPRA: ${product}` ||
         `Usuario_${userId} -COMPRA: ${product}`;
@@ -66,20 +78,6 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
         businessId,
         socialMediaId
       );
-
-      const responseM = await axios.get(
-        `https://api.mercadolibre.com/messages/orders/${orderId}?access_token=${accessToken}`
-      );
-      if (!responseM.data || responseM.data.messages.length === 0)
-        throw new Error("no hay mensajes asociados a esta orden");
-      const allMessages = responseM.data.messages;
-      const messages =
-        allMessages &&
-        allMessages.filter((message) => message.from.role === "seller");
-      if (!messages || messages.length === 0)
-        throw new Error("no hay mensajes del vendedor en esta orden");
-
-      console.log("mensajes: ", messages);
 
       for (const message of messages) {
         const text =
