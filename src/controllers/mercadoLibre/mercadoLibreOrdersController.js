@@ -33,7 +33,7 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
       const buyer = order.buyer;
       const userId = buyer.id.toString();
       const userName = buyer.nickname || `Usuario_${userId}`;
-      const name = `${buyer.first_name || ""} ${buyer.last_name || ""}`.trim();
+      const name = buyer.nickname || `Usuario_${userId}`;
 
       const newContact = await newContactCreated(
         userId,
