@@ -119,20 +119,32 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
         }
       }
     } catch (error) {
-      console.error("datos asociados al error", {
-        orderId: order.id,
-        packId: order.pack_id,
-        tags: order.tags,
-        url: `https://api.mercadolibre.com/messages/orders/${
-          order.pack_id || order.id
-        }?access_token=${accessToken}`,
-        error: error.response?.data || error.message,
-      });
-      if (error.response?.status === 404) {
-        console.warn(`No hay mensajes para la orden ${order.id}`);
+      const packOrOrderId = order.pack_id || order.id;
+      const isNotFound = error.response?.status === 404;
+
+      if (isNotFound) {
+        console.warn(
+          `[SIN MENSAJES] No hay mensajes para la orden ${order.id}`
+        );
+        console.warn("Detalles:", {
+          orderId: order.id,
+          packId: order.pack_id,
+          tags: order.tags,
+          url: `https://api.mercadolibre.com/messages/orders/${packOrOrderId}?access_token=${accessToken}`,
+        });
       } else {
-        console.error(`Error procesando orden ${order.id}:`, error.message);
+        console.error(
+          `[ERROR] Falló el procesamiento de la orden ${order.id}:`,
+          {
+            orderId: order.id,
+            packId: order.pack_id,
+            tags: order.tags,
+            url: `https://api.mercadolibre.com/messages/orders/${packOrOrderId}?access_token=${accessToken}`,
+            error: error.response?.data || error.message,
+          }
+        );
       }
+
       continue;
     }
   }
