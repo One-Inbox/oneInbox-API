@@ -28,7 +28,7 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
   //console.log("ordenes: ", orders);
 
   for (const order of orders) {
-    console.log("item comprado: ", order.order_items.item.title);
+    console.log("item comprado: ", order.order_items.item);
 
     try {
       const orderId = (order.pack_id || order.id).toString();
