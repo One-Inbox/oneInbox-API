@@ -41,6 +41,8 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
       const userName =
         `${buyer.nickname} -COMPRA: ${product}` ||
         `Usuario_${userId} -COMPRA: ${product}`;
+      console.log("user name:", userName);
+
       const name =
         `${buyer.nickname} -COMPRA: ${product}` ||
         `Usuario_${userId} -COMPRA: ${product}`;
