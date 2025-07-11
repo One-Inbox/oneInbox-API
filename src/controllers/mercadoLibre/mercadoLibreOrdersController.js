@@ -119,7 +119,20 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
         }
       }
     } catch (error) {
-      console.error(`Error procesando orden ${order.id}:`, error.message);
+      console.error("datos asociados al error", {
+        orderId: order.id,
+        packId: order.pack_id,
+        tags: order.tags,
+        url: `https://api.mercadolibre.com/messages/orders/${
+          order.pack_id || order.id
+        }?access_token=${accessToken}`,
+        error: error.response?.data || error.message,
+      });
+      if (error.response?.status === 404) {
+        console.warn(`No hay mensajes para la orden ${order.id}`);
+      } else {
+        console.error(`Error procesando orden ${order.id}:`, error.message);
+      }
       continue;
     }
   }
