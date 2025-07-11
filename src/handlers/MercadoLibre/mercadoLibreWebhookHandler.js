@@ -2,13 +2,17 @@ const { retryOperation } = require("./mercadoLibreRetryOperation");
 const {
   mercadoLibreQuestionController,
 } = require("../../controllers/mercadoLibre/mercadoLirbreQuestionsController");
-const { MsgReceived, Business, SocialMedia } = require("../../db");
+const {
+  MsgReceived,
+  Business,
+  SocialMedia,
+  SocialMediaActive,
+} = require("../../db");
 const { newContactCreated } = require("../../utils/newContact");
 const { newMsgReceived } = require("../../utils/newMsgReceived");
 const { postNewMsgReceived } = require("../../utils/postNewMsgReceived");
 const { getAccessTokenFromDB } = require("../../utils/getAccessToken");
 const mercadoLibreAuthController = require("../../controllers/mercadoLibre/mercadoLibreAuthController");
-const { SocialMediaActive } = require("../../db");
 const {
   mercadoLibreOrdersController,
 } = require("../../controllers/mercadoLibre/mercadoLibreOrdersController");

@@ -1,6 +1,13 @@
 const axios = require("axios");
-
+const {
+  MsgReceived,
+  Business,
+  SocialMedia,
+  SocialMediaActive,
+} = require("../../db");
 const { newContactCreated } = require("../../utils/newContact");
+const { newMsgReceived } = require("../../utils/newMsgReceived");
+const { postNewMsgReceived } = require("../../utils/postNewMsgReceived");
 require("dotenv").config();
 
 const businessId =
@@ -9,10 +16,12 @@ const socialMediaId = 5;
 
 const mercadoLibreOrdersController = async (accessToken, idUser) => {
   if (!accessToken || !idUser) throw new Error("Missing data");
+  const business = await Business.findByPk(businessId);
+  const socialMedia = await SocialMedia.findByPk(socialMediaId);
   const response = await axios.get(
     `https://api.mercadolibre.com/orders/search?seller=${idUser}&order.status=paid&access_token=${accessToken}`
   );
-  if (!response) {
+  if (!response.data || response.data.results.length === 0) {
     throw new Error("There is no order with paid status for this user");
   }
   const orders = response.data.results;
@@ -40,11 +49,77 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
       const responseM = await axios.get(
         `https://api.mercadolibre.com/messages/orders/${orderId}?access_token=${accessToken}`
       );
-      if (!responseM) throw new Error("no hay mensajes asociados a esta orden");
-      const messages = responseM.data.messages;
+      if (!responseM.data || responseM.data.messages.length === 0)
+        throw new Error("no hay mensajes asociados a esta orden");
+      const allMessages = responseM.data.messages;
+      const messages =
+        allMessages &&
+        allMessages.filter((message) => message.from.role === "seller");
+      if (!messages || messages.length === 0)
+        throw new Error("no hay mensajes del vendedor en esta orden");
+
       console.log("mensajes: ", messages);
+
+      for (const message of messages) {
+        const text =
+          message.text ||
+          message.plain ||
+          message.message?.plain ||
+          "(Mensaje vacío)";
+        const timestamp = new Date(message.date_created).getTime();
+        const externalId = `MELI:ORDER-${message.id}` || null;
+
+        const msgReceived = await newMsgReceived(
+          orderId,
+          userId,
+          text,
+          name,
+          timestamp,
+          externalId,
+          null,
+          businessId,
+          "No Leidos",
+          true,
+          userName,
+          false,
+          newContact,
+          socialMediaId
+        );
+        // Emito el mensaje a la app
+        if (msgReceived.processed) {
+          const msgReceivedData = {
+            id: msgReceived.id,
+            chatId: msgReceived.chatId,
+            idUser: msgReceived.userId,
+            text: msgReceived.text,
+            name: msgReceived.name,
+            timestamp: msgReceived.timestamp,
+            externalId: msgReceived.externalId, //Item agregado: Este campo puede ser opcional
+            phoneNumber: msgReceived.phoneNumber,
+            userName: msgReceived.userName,
+            BusinessId: businessId,
+            Business: { id: businessId, name: business.name },
+            state: "No Leidos",
+            received: true,
+            ContactId: newContact.id,
+            Contact: {
+              id: newContact.id,
+              name: newContact.name,
+              userName: newContact.userName,
+            },
+            SocialMediumId: socialMediaId,
+            SocialMedium: {
+              id: socialMediaId,
+              name: socialMedia.name,
+              icon: socialMedia.icon,
+            },
+          };
+
+          await postNewMsgReceived(msgReceivedData, res);
+        }
+      }
     } catch (error) {
-      console.error(`Error procesando orden ${order.id}:`, err.message);
+      console.error(`Error procesando orden ${order.id}:`, error.message);
       continue;
     }
   }
