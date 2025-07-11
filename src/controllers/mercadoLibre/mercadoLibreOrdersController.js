@@ -25,9 +25,11 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
     throw new Error("There is no order with paid status for this user");
   }
   const orders = response.data.results;
-  console.log("ordenes: ", orders);
+  //console.log("ordenes: ", orders);
 
   for (const order of orders) {
+    console.log("item comprado: ", order.order_items);
+
     try {
       const orderId = (order.pack_id || order.id).toString();
       const buyer = order.buyer;
@@ -126,12 +128,12 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
         console.warn(
           `[SIN MENSAJES] No hay mensajes para la orden ${order.id}`
         );
-        console.warn("Detalles:", {
-          orderId: order.id,
-          packId: order.pack_id,
-          tags: order.tags,
-          url: `https://api.mercadolibre.com/messages/orders/${packOrOrderId}?access_token=${accessToken}`,
-        });
+        // console.warn("Detalles:", {
+        //   orderId: order.id,
+        //   packId: order.pack_id,
+        //   tags: order.tags,
+        //   url: `https://api.mercadolibre.com/messages/orders/${packOrOrderId}?access_token=${accessToken}`,
+        // });
       } else {
         console.error(
           `[ERROR] Falló el procesamiento de la orden ${order.id}:`,
