@@ -19,7 +19,7 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
   const business = await Business.findByPk(businessId);
   const socialMedia = await SocialMedia.findByPk(socialMediaId);
   const response = await axios.get(
-    `https://api.mercadolibre.com/orders/search?seller=${idUser}&order.status=paid&access_token=${accessToken}`
+    `https://api.mercadolibre.com/orders/search?seller=${idUser}&order.status=paid,delivered&access_token=${accessToken}`
   );
   if (!response.data || response.data.results.length === 0) {
     throw new Error("There is no order with paid status for this user");
@@ -28,8 +28,7 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
   //console.log("ordenes: ", orders);
 
   for (const order of orders) {
-    console.log("item comprado: ", order.order_items[0].item.title);
-
+    console.log("estado de la orden: ", order.status);
     try {
       const orderId = (order.pack_id || order.id).toString();
       const product =
@@ -41,7 +40,7 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
       const userName =
         `${buyer.nickname} -COMPRA: ${product}` ||
         `Usuario_${userId} -COMPRA: ${product}`;
-      console.log("user name:", userName);
+      //console.log("user name:", userName);
 
       const name =
         `${buyer.nickname} -COMPRA: ${product}` ||
@@ -138,12 +137,6 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
         console.warn(
           `[SIN MENSAJES] No hay mensajes para la orden ${order.id}`
         );
-        // console.warn("Detalles:", {
-        //   orderId: order.id,
-        //   packId: order.pack_id,
-        //   tags: order.tags,
-        //   url: `https://api.mercadolibre.com/messages/orders/${packOrOrderId}?access_token=${accessToken}`,
-        // });
       } else {
         console.error(
           `[ERROR] Falló el procesamiento de la orden ${order.id}:`,
