@@ -7,13 +7,14 @@ const socialMediaId = 3; // ID de Instagram
 async function getLongLivedToken(shortLivedToken, businessId) {
   console.log("🔥 getLongLivedToken SE ESTÁ EJECUTANDO");
   console.log("businessId recibido:", businessId);
+  const clientSecret = process.env.INSTAGRAM_CLIENT_SECRET;
   try {
     const response = await axios.get(
       "https://graph.instagram.com/access_token",
       {
         params: {
           grant_type: "ig_exchange_token",
-          client_secret: process.env.INSTAGRAM_CLIENT_SECRET,
+          client_secret: clientSecret,
           access_token: shortLivedToken,
         },
       }

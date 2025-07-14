@@ -68,7 +68,6 @@ const mercadoLibreWebhookHandler = async (req, res) => {
         const productId = questionDetails.item_id;
         const timestamp = new Date(questionDetails.date_created).getTime();
         const externalId = `MELI-${questionDetails.id}` || null; //item agregado: Este campo puede ser opcional
-
         // aca obtenemos el nombre del producto
         const productDetails =
           await mercadoLibreQuestionController.getProductDetails(
@@ -76,6 +75,7 @@ const mercadoLibreWebhookHandler = async (req, res) => {
             accessToken
           );
         const productName = productDetails.title || "Producto sin título";
+        const contactName = `${buyerName} - Pregunta sobre producto ${productName}`;
 
         const existingMessage = await MsgReceived.findOne({
           where: {
@@ -96,9 +96,10 @@ const mercadoLibreWebhookHandler = async (req, res) => {
         }
 
         // Creo contacto
+
         const newContact = await newContactCreated(
           buyerId,
-          productName,
+          contactName,
           buyerName,
           true,
           questionId,

@@ -1,25 +1,29 @@
 const axios = require("axios");
 const { SocialMediaActive, Business } = require("../db");
+require("dotenv").config();
+const accessToken =
+  process.env.INSTAGRAM_ACCESS_TOKEN ||
+  "IGQWRNS1h6TU9JalA3RWl2cFQ5LUJrNkpTNWRxbk9jNU9OY2h0ZAVExelUzWmJidzRJSzB6QkxlVHhHdkM4YXZAldVlEd090cmtoMjktamR0amxrSzRHbF9OQ1dnWXRKakgzcDY2Qng2Xy1GNjYwLUR2bmFRcGdjN3cZD";
 
 const socialMediaId = 3; // ID de Instagram
 const getInstagramUserName = async (senderId, businessId) => {
   try {
-    const socialMedia = await SocialMediaActive.findOne({
-      where: { socialMediaId },
-      include: [
-        {
-          model: Business,
-          where: { id: businessId },
-          through: { attributes: [] }, //excluyo los atributos de la tabla intermedia
-        },
-      ],
-    });
+    // const socialMedia = await SocialMediaActive.findOne({
+    //   where: { socialMediaId },
+    //   include: [
+    //     {
+    //       model: Business,
+    //       where: { id: businessId },
+    //       through: { attributes: [] }, //excluyo los atributos de la tabla intermedia
+    //     },
+    //   ],
+    // });
 
-    if (!socialMedia) {
-      throw new Error("Social media not found");
-    }
+    // if (!socialMedia) {
+    //   throw new Error("Social media not found");
+    // }
 
-    const accessToken = socialMedia.accessToken;
+    // const accessToken = socialMedia.accessToken;
 
     const url = `https://graph.instagram.com/${senderId}?fields=username&access_token=${accessToken}`;
     console.log("URL completa:", url);
