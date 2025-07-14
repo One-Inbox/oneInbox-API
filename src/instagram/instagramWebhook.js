@@ -9,7 +9,7 @@ const socialMediaId = 3; //este es el id de telegram
 async function instagramWebhook(req, res) {
   try {
     if (!verifyRequestSignature(req)) {
-      console.error("ERROR: Firma de solicitud no válida.");
+      console.error("ERROR-IG: Firma de solicitud no válida.");
       return res.sendStatus(402);
     }
 
@@ -35,11 +35,11 @@ async function instagramWebhook(req, res) {
                 "IG: Mensaje sin destinatario o ID de destinatario; no se puede procesar"
               );
             }
-            // const senderName = await getInstagramUserName(
-            //   message.sender.id,
-            //   businessId
-            // );
-            const senderName = null;
+            const senderName = await getInstagramUserName(
+              message.sender.id,
+              businessId
+            );
+
             const instagramMessage = {
               chatId: message.message.mid,
               idUser: message.sender.id,

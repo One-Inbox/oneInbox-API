@@ -9,7 +9,7 @@ const processInstagramMessage = async (instagramMessage) => {
     if (instagramMessage.message?.is_echo) {
       return {
         success: false,
-        error: "Mensaje filtrado por ser de tipo echo.",
+        error: "IG: Mensaje filtrado por ser de tipo echo.",
       };
     }
     // Extraer datos ya procesados de instagramWebhook
@@ -33,7 +33,9 @@ const processInstagramMessage = async (instagramMessage) => {
       // console.error(
       //   "ERROR: Faltan datos obligatorios para procesar el mensaje."
       // );
-      throw new Error("Faltan datos obligatorios para procesar el mensaje.");
+      throw new Error(
+        "IG: Faltan datos obligatorios para procesar el mensaje."
+      );
     }
 
     // Procesos de creación/actualización

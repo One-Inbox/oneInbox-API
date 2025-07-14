@@ -19,6 +19,7 @@ const getInstagramUserName = async (senderId, businessId) => {
       `https://graph.instagram.com/${senderId}&access_token=${accessToken}`
     );
     console.log("RECEPCION DESDE ENDPOINT NUEVO:", response.data);
+    return null;
 
     // if (response.data && response.data.name) {
     //   return response.data.name;
