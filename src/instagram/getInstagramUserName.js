@@ -16,9 +16,9 @@ const getInstagramUserName = async (senderId, businessId) => {
 
     const response = await axios.get(
       //`https://graph.facebook.com/v16.0/${senderId}?fields=name&access_token=${accessToken}`
-      `https://graph.instagram.com/${senderId}?fields=username&access_token=${accessToken}`
+      `https://graph.instagram.com/${senderId}&access_token=${accessToken}`
     );
-    console.log(response.data);
+    console.log("RECEPCION DESDE ENDPOINT NUEVO:", response.data);
 
     // if (response.data && response.data.name) {
     //   return response.data.name;

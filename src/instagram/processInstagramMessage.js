@@ -30,9 +30,9 @@ const processInstagramMessage = async (instagramMessage) => {
 
     // Validación para asegurar que los datos obligatorios estén presentes
     if (!chatId || !idUser || !text || !timestamp) {
-      console.error(
-        "ERROR: Faltan datos obligatorios para procesar el mensaje."
-      );
+      // console.error(
+      //   "ERROR: Faltan datos obligatorios para procesar el mensaje."
+      // );
       throw new Error("Faltan datos obligatorios para procesar el mensaje.");
     }
 
