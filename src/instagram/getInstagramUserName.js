@@ -10,6 +10,7 @@ const getInstagramUserName = async (senderId, businessId) => {
         {
           model: Business,
           where: { id: businessId },
+          through: { attributes: [] }, //excluyo los atributos de la tabla intermedia
         },
       ],
     });
