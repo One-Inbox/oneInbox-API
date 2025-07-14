@@ -115,6 +115,8 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
             Business: { id: businessId, name: business.name },
             state: "No Leidos",
             received: true,
+            idSeller: msgReceived.idSeller,
+            idBuyer: msgReceived.idBuyer,
             ContactId: newContact.id,
             Contact: {
               id: newContact.id,
