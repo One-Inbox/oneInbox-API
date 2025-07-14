@@ -1,11 +1,17 @@
 const axios = require("axios");
-const { SocialMediaActive } = require("../db");
+const { SocialMediaActive, Business } = require("../db");
 
 const socialMediaId = 3; // ID de Instagram
 const getInstagramUserName = async (senderId, businessId) => {
   try {
     const socialMedia = await SocialMediaActive.findOne({
-      where: { socialMediaId, businessId },
+      where: { socialMediaId },
+      include: [
+        {
+          model: Business,
+          where: { id: businessId },
+        },
+      ],
     });
 
     if (!socialMedia) {
