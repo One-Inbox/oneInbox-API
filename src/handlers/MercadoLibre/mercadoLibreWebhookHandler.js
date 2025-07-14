@@ -137,7 +137,7 @@ const mercadoLibreWebhookHandler = async (req, res) => {
             chatId: msgReceived.chatId,
             idUser: msgReceived.idUser,
             text: msgReceived.text,
-            name: msgReceived.productName,
+            name: msgReceived.contactName,
             timestamp: msgReceived.timestamp,
             externalId: msgReceived.externalId, //Item agregado: Este campo puede ser opcional
             phoneNumber: msgReceived.phoneNumber,
