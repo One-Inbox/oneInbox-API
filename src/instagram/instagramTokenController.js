@@ -5,6 +5,8 @@ require("dotenv").config();
 const socialMediaId = 3; // ID de Instagram
 
 async function getLongLivedToken(shortLivedToken, businessId) {
+  console.log("🔥 getLongLivedToken SE ESTÁ EJECUTANDO");
+  console.log("businessId recibido:", businessId);
   try {
     const response = await axios.get(
       "https://graph.instagram.com/access_token",
