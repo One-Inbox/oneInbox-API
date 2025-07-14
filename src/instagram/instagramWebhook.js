@@ -35,10 +35,11 @@ async function instagramWebhook(req, res) {
                 "IG: Mensaje sin destinatario o ID de destinatario; no se puede procesar"
               );
             }
-            const senderName = await getInstagramUserName(
-              message.sender.id,
-              businessId
-            );
+            // const senderName = await getInstagramUserName(
+            //   message.sender.id,
+            //   businessId
+            // );
+            const senderName = null;
             const instagramMessage = {
               chatId: message.message.mid,
               idUser: message.sender.id,

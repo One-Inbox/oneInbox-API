@@ -20,11 +20,11 @@ const getInstagramUserName = async (senderId, businessId) => {
     );
     console.log(response.data);
 
-    if (response.data && response.data.name) {
-      return response.data.name;
-    } else {
-      throw new Error("No name found in the response");
-    }
+    // if (response.data && response.data.name) {
+    //   return response.data.name;
+    // } else {
+    //   throw new Error("No name found in the response");
+    // }
   } catch (error) {
     console.error("Error fetching Instagram username:", error.message);
     return null;
