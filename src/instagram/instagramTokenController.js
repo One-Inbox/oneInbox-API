@@ -1,25 +1,34 @@
 const axios = require("axios");
-const { SocialMediaActive } = require("../db");
+const { SocialMediaActive, Business } = require("../db");
 
 require("dotenv").config();
+const socialMediaId = 3; // ID de Instagram
 
-
-async function getLongLivedToken(shortLivedToken, userId) {
+async function getLongLivedToken(shortLivedToken, businessId) {
   try {
-    const response = await axios.get("https://graph.instagram.com/access_token", {
-      params: {
-        grant_type: "ig_exchange_token",
-        client_secret: process.env.INSTAGRAM_CLIENT_SECRET,
-        access_token: shortLivedToken,
-      },
-    });
+    const response = await axios.get(
+      "https://graph.instagram.com/access_token",
+      {
+        params: {
+          grant_type: "ig_exchange_token",
+          client_secret: process.env.INSTAGRAM_CLIENT_SECRET,
+          access_token: shortLivedToken,
+        },
+      }
+    );
 
     const { access_token: longLivedToken, expires_in } = response.data;
     const expirationDate = new Date(Date.now() + expires_in * 1000);
 
     // Actualizar en la base de datos
-    const socialMediaActive = await SocialMediaActive.findOne({ 
-        where: { socialMediaId: 3, userId: userId },
+    const socialMediaActive = await SocialMediaActive.findOne({
+      where: { socialMediaId },
+      include: [
+        {
+          model: Business,
+          where: { id: businessId },
+        },
+      ],
     });
 
     if (socialMediaActive) {
@@ -33,27 +42,34 @@ async function getLongLivedToken(shortLivedToken, userId) {
 
     return longLivedToken;
   } catch (error) {
-    console.error("Error al obtener el token de larga duración:", error.response?.data || error.message);
-    throw new Error(`Error al obtener el token de larga duración: ${error.message}`);
+    console.error(
+      "Error al obtener el token de larga duración:",
+      error.response?.data || error.message
+    );
+    throw new Error(
+      `Error al obtener el token de larga duración: ${error.message}`
+    );
+  }
 }
-}
-
 
 async function refreshLongLivedToken(longLivedToken, userId) {
   try {
-    const response = await axios.get("https://graph.instagram.com/refresh_access_token", {
-      params: {
-        grant_type: "ig_refresh_token",
-        access_token: longLivedToken,
-      },
-    });
+    const response = await axios.get(
+      "https://graph.instagram.com/refresh_access_token",
+      {
+        params: {
+          grant_type: "ig_refresh_token",
+          access_token: longLivedToken,
+        },
+      }
+    );
 
     const { access_token: refreshedToken, expires_in } = response.data;
     const expirationDate = new Date(Date.now() + expires_in * 1000);
 
     // Actualizar en la base de datos
-    const socialMediaActive = await SocialMediaActive.findOne({ 
-        where: { socialMediaId: 3, userId: userId },
+    const socialMediaActive = await SocialMediaActive.findOne({
+      where: { socialMediaId: 3, userId: userId },
     });
 
     if (socialMediaActive) {
@@ -67,7 +83,10 @@ async function refreshLongLivedToken(longLivedToken, userId) {
 
     return refreshedToken;
   } catch (error) {
-    console.error("Error al refrescar el token de larga duración:", error.response?.data || error.message);
+    console.error(
+      "Error al refrescar el token de larga duración:",
+      error.response?.data || error.message
+    );
     throw new Error("No se pudo refrescar el token de larga duración.");
   }
 }

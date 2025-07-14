@@ -46,7 +46,7 @@ async function handleInstagramCallback(req, res) {
     console.log("Token de corta duración obtenido");
     console.log("Pasando a getLongLivedToken");
 
-    const longLivedToken = await getLongLivedToken(shortLivedToken, userId);
+    const longLivedToken = await getLongLivedToken(shortLivedToken, businessId);
     console.log("Token de larga duración obtenido"); // Validar que user_id sea del tipo correcto
 
     if (typeof user_id !== "string" && typeof user_id !== "number") {
