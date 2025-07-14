@@ -113,7 +113,7 @@ const mercadoLibreWebhookHandler = async (req, res) => {
           questionId,
           buyerId,
           questionText,
-          productName,
+          contactName,
           timestamp,
           externalId, // item agregado: Este campo puede ser opcional
           null,
