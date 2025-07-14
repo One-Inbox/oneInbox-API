@@ -21,27 +21,15 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
   const response = await axios.get(
     `https://api.mercadolibre.com/orders/search?seller=${idUser}&order.status=paid&access_token=${accessToken}`
   );
-  // const estados = ["paid", "delivered"];
-  // let allOrders = [];
-
-  // for (const estado of estados) {
-  //   const response = await axios.get(
-  //     `https://api.mercadolibre.com/orders/search?seller=${idUser}&order.status=${estado}&access_token=${accessToken}`
-  //   );
-  //   allOrders.push(...response.data.results);
-  // }
 
   if (!response.data || response.data.results.length === 0) {
     throw new Error("There is no order with paid status for this user");
   }
   const orders = response.data.results;
-  console.log("ordenes: ", orders);
 
   for (const order of orders) {
-    console.log("estado de la orden: ", order.status);
     try {
       const orderId = (order.pack_id || order.id).toString();
-      console.log("orderId:", orderId);
 
       const responseM = await axios.get(
         `https://api.mercadolibre.com/messages/orders/${orderId}?access_token=${accessToken}`
@@ -54,7 +42,6 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
         allMessages.filter((message) => message.from.role === "buyer");
       if (!messages || messages.length === 0)
         throw new Error("no hay mensajes del comprador en esta orden");
-      console.log("mensajes: ", messages);
 
       const product =
         order.order_items.length > 1

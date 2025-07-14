@@ -1,14 +1,10 @@
-//controlador (mercadoLibreQuestionController) que gestiona la interacción con la API de Mercado Libre para obtener preguntas, detalles de preguntas, detalles de productos y registrar un webhook para recibir notificaciones de nuevas preguntas.
 const axios = require("axios");
 require("dotenv").config();
-//const mercadoLibreAuthController = require("./mercadoLibreAuthController"); // Importar el controlador de autenticación de Mercado Libre
 
 const URL_API = process.env.URL_API || "https://oneinbox-api.onrender.com"; // URL de la API
 
 const mercadoLibreQuestionController = {
   getQuestions: async (accessToken) => {
-    // const idUser = "357777393";
-    // await mercadoLibreAuthController.checkAndRefreshToken(idUser);
     try {
       const response = await axios.get(
         "https://api.mercadolibre.com/questions/search",

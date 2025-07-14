@@ -51,19 +51,6 @@ const mercadoLibreWebhookHandler = async (req, res) => {
       const question = req.body;
       const resource = question.resource;
       const questionId = resource.split("/").pop();
-      // const accessToken = await getAccessTokenFromDB();
-
-      // if (!accessToken) {
-      //   console.error(
-      //     "MELI-PREGUNTA:AccessToken no está disponible en WEBHOOK HANDLER."
-      //   );
-      //   return res.status(404).json({
-      //     message:
-      //       "MELI-PREGUNTA:El accessToken es requerido pero no se encuentra disponible.",
-      //   });
-      // }
-      console.log("AccessToken:", accessToken);
-      console.log("QuestionId:", questionId);
 
       const questionDetails = await retryOperation(async () => {
         await mercadoLibreAuthController.checkAndRefreshToken(idUser);
