@@ -21,12 +21,22 @@ const getInstagramUserName = async (senderId, businessId) => {
 
     const accessToken = socialMedia.accessToken;
 
-    const response = await axios.get(
-      //`https://graph.facebook.com/v16.0/${senderId}?fields=name&access_token=${accessToken}`
-      `https://graph.instagram.com/${senderId}&access_token=${accessToken}`
+    const url = `https://graph.instagram.com/${senderId}?fields=username&access_token=${accessToken}`;
+    console.log("URL completa:", url);
+    console.log("Sender ID:", senderId);
+    console.log(
+      "Access Token (primeros 20 chars):",
+      accessToken?.substring(0, 20)
     );
+
+    const response = await axios.get(url);
+
+    // const response = await axios.get(
+    //   //`https://graph.facebook.com/v16.0/${senderId}?fields=name&access_token=${accessToken}`
+    //   `https://graph.instagram.com/${senderId}&access_token=${accessToken}`
+    // );
     console.log("RECEPCION DESDE ENDPOINT NUEVO:", response.data);
-    return null;
+    return response.data;
 
     // if (response.data && response.data.name) {
     //   return response.data.name;
@@ -34,7 +44,14 @@ const getInstagramUserName = async (senderId, businessId) => {
     //   throw new Error("No name found in the response");
     // }
   } catch (error) {
-    console.error("Error fetching Instagram username:", error.message);
+    console.error(
+      "IG: error encontrando el nombre del usuario:",
+      error.message
+    );
+    if (error.response) {
+      console.log("Error response data:", error.response.data);
+      console.log("Error response status:", error.response.status);
+    }
     return null;
   }
 };
