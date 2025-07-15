@@ -75,7 +75,6 @@ const mercadoLibreWebhookHandler = async (req, res) => {
             accessToken
           );
         const productName = productDetails.title || "Producto sin título";
-        const contactName = `${buyerName} - Pregunta sobre producto ${productName}`;
 
         const existingMessage = await MsgReceived.findOne({
           where: {
@@ -99,7 +98,7 @@ const mercadoLibreWebhookHandler = async (req, res) => {
 
         const newContact = await newContactCreated(
           buyerId,
-          contactName,
+          buyerName,
           buyerName,
           true,
           questionId,
@@ -113,7 +112,7 @@ const mercadoLibreWebhookHandler = async (req, res) => {
           questionId,
           buyerId,
           questionText,
-          contactName,
+          productName,
           timestamp,
           externalId, // item agregado: Este campo puede ser opcional
           null,
@@ -137,7 +136,7 @@ const mercadoLibreWebhookHandler = async (req, res) => {
             chatId: msgReceived.chatId,
             idUser: msgReceived.idUser,
             text: msgReceived.text,
-            name: msgReceived.contactName,
+            name: msgReceived.productName,
             timestamp: msgReceived.timestamp,
             externalId: msgReceived.externalId, //Item agregado: Este campo puede ser opcional
             phoneNumber: msgReceived.phoneNumber,
