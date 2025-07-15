@@ -29,6 +29,26 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
 
   for (const order of orders) {
     try {
+      if (order.shipping && order.shipping.id) {
+        const shippingId = order.shipping.id;
+        const shippingResponse = await axios.get(
+          `https://api.mercadolibre.com/shipments/${shippingId}?access_token=${accessToken}`
+        );
+        if (
+          shippingResponse.data &&
+          shippingResponse.data.status === "delivered"
+        ) {
+          console.warn(`Orden ${order.id} ha sido entregada`);
+          continue; // Skip this order if it has been delivered
+        }
+      }
+      if (
+        (order.tags && order.tags.includes("canceled")) ||
+        order.tags.includes("delivered")
+      ) {
+        console.warn(`Orden ${order.id} ha sido cancelada o entregada`);
+        continue; // Skip this order if it has been canceled or delivered
+      }
       const orderId = (order.pack_id || order.id).toString();
 
       const responseM = await axios.get(
@@ -53,9 +73,7 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
       const userName =
         `${buyer.nickname} -COMPRA: ${product}` ||
         `Usuario_${userId} -COMPRA: ${product}`;
-      const name =
-        `${buyer.nickname} -COMPRA: ${product}` ||
-        `Usuario_${userId} -COMPRA: ${product}`;
+      const name = userName;
       console.log("comprador y producto:", name);
 
       const idSeller = order.seller.id;
