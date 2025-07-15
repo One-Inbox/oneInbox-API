@@ -62,7 +62,7 @@ module.exports = (sequelize) => {
 
       state: {
         type: DataTypes.ENUM,
-        values: ["No Leidos", "Leidos", "Respondidos", "Archivados"],
+        values: ["No Leidos", "Leidos", "Respondidos"],
         defaultValue: "No Leidos",
         allowNull: false,
       },
@@ -85,6 +85,11 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: true,
         defaultValue: null,
+      },
+      archived: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false, // por defecto no esta archivado
       },
     },
     { timestamps: false }

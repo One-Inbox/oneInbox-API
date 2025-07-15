@@ -20,6 +20,7 @@ const {
 const {
   deleteAllMsgReceivedHandler,
 } = require("../../handlers/Message/messagesReceived/deleteAllMsgReceivedHandler");
+const updateArchivedMessageReceivedHandler = require("../../handlers/Message/messagesReceived/updateArchivedMessageReceivedHandler");
 
 const messagesReceivedRoute = Router();
 
@@ -39,5 +40,9 @@ messagesReceivedRoute.get(
 );
 messagesReceivedRoute.delete("/delete/:id", deleteMsgReceivedHandler);
 // messagesReceivedRoute.delete("/delete", deleteAllMsgReceivedHandler);
+messagesReceivedRoute.put(
+  "/archived/:id",
+  updateArchivedMessageReceivedHandler
+);
 
 module.exports = { messagesReceivedRoute };
