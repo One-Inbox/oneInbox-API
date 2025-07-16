@@ -88,7 +88,7 @@ module.exports = (sequelize) => {
       },
       archived: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
+        allowNull: true,
         defaultValue: false, // por defecto no esta archivado
       },
     },
@@ -96,10 +96,8 @@ module.exports = (sequelize) => {
   );
 
   MsgReceived.updateDefaultText = async function () {
-    await this.update(
-      { text: "default text" }, // Proporcionar un valor predeterminado significativo
-      { where: { text: null } }
-    );
+    await this.update({ text: "default text" }, { where: { text: null } });
+    await this.update({ archived: false }, { where: { archived: null } });
   };
 
   return MsgReceived;
