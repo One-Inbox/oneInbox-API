@@ -20,7 +20,9 @@ const {
 const {
   deleteAllMsgReceivedHandler,
 } = require("../../handlers/Message/messagesReceived/deleteAllMsgReceivedHandler");
-const updateArchivedMessageReceivedHandler = require("../../handlers/Message/messagesReceived/updateArchivedMessageReceivedHandler");
+const {
+  updateArchivedMessageReceivedHandler,
+} = require("../../handlers/Message/messagesReceived/updateArchivedMessageReceivedHandler");
 
 const messagesReceivedRoute = Router();
 
