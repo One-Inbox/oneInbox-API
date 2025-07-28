@@ -15,8 +15,7 @@ const mercadoLibreSendMessage = async (
   if (!chatId || !message || !userId || !accessToken || !businessId)
     throw new Error("Missing data");
   try {
-    const originMessage =
-      idSeller !== null || idBuyer !== null ? "questions" : "orders";
+    const originMessage = idSeller || idBuyer ? "orders" : "questions";
 
     if (originMessage === "orders") {
       console.log(
