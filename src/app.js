@@ -106,18 +106,6 @@ io.on("connection", async (socket) => {
   const userId = socket.handshake.query.userId;
   console.log("CONEXION A SOCKET EXITOSA");
 
-  server.post("/newMessageReceived", async (req, res) => {
-    const messageData = await req.body;
-    console.log(messageData);
-    try {
-      // Emitir el evento desde app con los datos recibidos
-      io.emit("NEW_MESSAGE_RECEIVED", messageData);
-      res.status(200).send("APP/SOCKET- PREGUNTA:Evento emitido con éxito");
-    } catch (error) {
-      res.status(500).send("APP/SOCKET- PREGUNTA: Error al emitir el evento");
-    }
-  });
-
   if (!userId) {
     return; // Salir si userId no está definido
   }
@@ -133,6 +121,17 @@ io.on("connection", async (socket) => {
   });
 });
 
+server.post("/newMessageReceived", async (req, res) => {
+  const messageData = await req.body;
+  console.log(messageData);
+  try {
+    // Emitir el evento desde app con los datos recibidos
+    io.emit("NEW_MESSAGE_RECEIVED", messageData);
+    res.status(200).send("APP/SOCKET- PREGUNTA:Evento emitido con éxito");
+  } catch (error) {
+    res.status(500).send("APP/SOCKET- PREGUNTA: Error al emitir el evento");
+  }
+});
 server.post("/messageSend", async (req, res) => {
   const {
     chatId,
