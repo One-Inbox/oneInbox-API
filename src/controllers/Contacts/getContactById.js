@@ -30,11 +30,12 @@ const getContactById = async (id) => {
           "received",
           "idSeller",
           "idBuyer",
+          "archived",
         ],
       },
       {
         model: MsgSent,
-        attribute: ["id", "toData", "message", "timestamp", "received"],
+        attributes: ["id", "toData", "message", "timestamp", "received"],
       },
     ],
   });
