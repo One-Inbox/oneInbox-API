@@ -69,7 +69,18 @@ const newMsgReceived = async (
       await msgReceived.setBusiness(business);
     }
 
-    if (contact) await msgReceived.setContact(contact);
+    if (contact) {
+      await msgReceived.setContact(contact);
+      await MsgReceived.update(
+        { archived: false },
+        {
+          where: {
+            ContactId: contact.id,
+            archived: true, // Solo actualizar los que estaban archivados
+          },
+        }
+      );
+    }
     if (!contact) throw new Error("PREGUNTA: Contacto no encontrado");
 
     if (socialMediaId) {
