@@ -119,6 +119,7 @@ const syncDatabase = async () => {
   await sequelize.sync({ alter: true }); // Sincronizar base de datos con el modelo alterado
 
   await MsgReceived.updateDefaultText();
+  await User.updateUser();
 };
 
 const sessionStore = new SequelizeStore({
