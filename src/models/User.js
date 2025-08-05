@@ -52,6 +52,23 @@ module.exports = (sequelize) => {
         allowNull: true,
         defaultValue: true,
       },
+      //fecha de alta
+      admissionDatee: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: DataTypes.NOW,
+      },
+      //fecha de baja
+      dischargeDate: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+      // //numero de legajo
+      // fileNumber: {
+      //   type: DataTypes.STRING,
+      //   allowNull: true,
+      //   defaultValue: null,
+      // },
     },
     { timestamps: false }
   );
