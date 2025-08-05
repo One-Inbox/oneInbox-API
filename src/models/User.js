@@ -72,4 +72,11 @@ module.exports = (sequelize) => {
     },
     { timestamps: false }
   );
+  User.updateUser = async function () {
+    await this.update(
+      { admissionDate: new Date() },
+      { where: { admissionDate: null } }
+    );
+    return UserActivation;
+  };
 };
