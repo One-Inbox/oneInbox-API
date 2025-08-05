@@ -77,6 +77,6 @@ module.exports = (sequelize) => {
       { admissionDate: new Date() },
       { where: { admissionDate: null } }
     );
-    return UserActivation;
   };
+  return User;
 };
