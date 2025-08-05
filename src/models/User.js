@@ -53,7 +53,7 @@ module.exports = (sequelize) => {
         defaultValue: true,
       },
       //fecha de alta
-      admissionDatee: {
+      admissionDate: {
         type: DataTypes.DATE,
         allowNull: true,
         defaultValue: DataTypes.NOW,
