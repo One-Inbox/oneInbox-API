@@ -27,7 +27,8 @@ const updateUser = async (
       userToUpdate.privilege = privilege;
       userToUpdate.socketId = socketId || null;
       userToUpdate.image = image || null;
-      userToUpdate.active = active || true;
+      userToUpdate.active =
+        active !== undefined || active !== null ? active : true;
       userToUpdate.admissionDate = admissionDate;
       userToUpdate.dischargeDate = dischargeDate || null;
 
