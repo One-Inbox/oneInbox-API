@@ -9,6 +9,7 @@ const updateUser = async (
   privilege,
   socketId,
   image,
+  active,
   admissionDate,
   dischargeDate
 ) => {
@@ -26,6 +27,7 @@ const updateUser = async (
       userToUpdate.privilege = privilege;
       userToUpdate.socketId = socketId || null;
       userToUpdate.image = image || null;
+      userToUpdate.active = active || true;
       userToUpdate.admissionDate = admissionDate;
       userToUpdate.dischargeDate = dischargeDate || null;
 
