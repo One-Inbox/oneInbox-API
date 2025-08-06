@@ -8,7 +8,9 @@ const updateUser = async (
   phone,
   privilege,
   socketId,
-  image
+  image,
+  admissionDate,
+  dischargeDate
 ) => {
   try {
     if (!id) throw new Error("Missing ID");
@@ -24,6 +26,8 @@ const updateUser = async (
       userToUpdate.privilege = privilege;
       userToUpdate.socketId = socketId || null;
       userToUpdate.image = image || null;
+      userToUpdate.admissionDate = admissionDate;
+      userToUpdate.dischargeDate = dischargeDate || null;
 
       await userToUpdate.save();
       return `Congratulation! User with ID ${id} has been updated`;

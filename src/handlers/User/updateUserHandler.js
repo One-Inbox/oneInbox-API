@@ -1,7 +1,17 @@
 const { updateUser } = require("../../controllers/User/updateUser");
 
 const updateUserHandler = async (req, res) => {
-  const { name, email, password, phone, privilege, socketId, image } = req.body;
+  const {
+    name,
+    email,
+    password,
+    phone,
+    privilege,
+    socketId,
+    image,
+    admissionDate,
+    dischargeDate,
+  } = req.body;
   const { id } = req.params;
 
   try {
@@ -15,7 +25,9 @@ const updateUserHandler = async (req, res) => {
       phone,
       privilege,
       socketId,
-      image
+      image,
+      admissionDate,
+      dischargeDate
     );
     res.status(200).send(result);
   } catch (error) {
