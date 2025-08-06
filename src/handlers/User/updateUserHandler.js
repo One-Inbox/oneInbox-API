@@ -9,6 +9,7 @@ const updateUserHandler = async (req, res) => {
     privilege,
     socketId,
     image,
+    active,
     admissionDate,
     dischargeDate,
   } = req.body;
