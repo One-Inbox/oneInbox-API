@@ -38,7 +38,7 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
           shippingResponse.data &&
           shippingResponse.data.status === "delivered"
         ) {
-          console.warn(`Orden ${order.id} ha sido entregada`);
+          // console.warn(`Orden ${order.id} ha sido entregada`);
           continue; // Skip this order if it has been delivered
         }
       }
@@ -46,7 +46,7 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
         (order.tags && order.tags.includes("canceled")) ||
         order.tags.includes("delivered")
       ) {
-        console.warn(`Orden ${order.id} ha sido cancelada o entregada`);
+        // console.warn(`Orden ${order.id} ha sido cancelada o entregada`);
         continue; // Skip this order if it has been canceled or delivered
       }
       const orderId = (order.pack_id || order.id).toString();
