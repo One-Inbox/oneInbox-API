@@ -25,7 +25,7 @@ module.exports = (io) => {
     }
 
     const chatId = message.chat.id.toString();
-    console.log(chatId);
+    // console.log(chatId);
 
     const messageReceived = message.text;
     const senderName = message.from.first_name;
@@ -37,9 +37,9 @@ module.exports = (io) => {
       typeof messageReceived !== "string" ||
       messageReceived.trim() === ""
     ) {
-      console.log(
-        "telegram: Mensaje sin texto o vacío recibido. No se procesará."
-      );
+      // console.log(
+      //   "telegram: Mensaje sin texto o vacío recibido. No se procesará."
+      // );
       return res.status(200).send("Mensaje sin texto. Proceso finalizado.");
     }
 

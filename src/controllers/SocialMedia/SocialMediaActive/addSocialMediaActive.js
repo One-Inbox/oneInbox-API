@@ -12,8 +12,6 @@ const addSocialMediaActive = async (
   businessId,
   userId
 ) => {
-  // console.log("businessId recibido en controller:", businessId);
-
   try {
     if (!dataUser || !businessId || !socialMediaId)
       throw new Error("Missing Data");
@@ -35,14 +33,11 @@ const addSocialMediaActive = async (
         authorizationCode,
         userId,
       });
-      //console.log('Nueva SocialMediaActive creada:', newSocialMediaActive.id);
       await newSocialMediaActive.addBusiness(business);
-      //console.log(`Asociado negocio ${business.id} a SocialMediaActive ${newSocialMediaActive.id}`);
       await newSocialMediaActive.addSocialMedia(socialMedia);
-      //console.log(`Asociada red social ${socialMedia.id} a SocialMediaActive ${newSocialMediaActive.id}`);
+
       // Confirmar asociaciones
       const associatedBusinesses = await newSocialMediaActive.getBusinesses();
-      //console.log('Negocios asociados después de la inserción:', associatedBusinesses.map(b => b.id));
 
       // Retornar la red social activa creada o encontrada
       return newSocialMediaActive;

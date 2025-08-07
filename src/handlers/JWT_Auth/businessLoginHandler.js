@@ -14,7 +14,7 @@ const businessLoginHandler = async (req, res) => {
       sameSite: "strict", // Protección CSRF
       path: "/",
     });
-    console.log("token en businessLogin guardado en la cookie");
+    // console.log("token en businessLogin guardado en la cookie");
 
     res.status(201).json({ business });
   } catch (error) {

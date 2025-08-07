@@ -7,7 +7,7 @@ messengerMsgReceived.post("/messengerWebhook/messageReceived", (req, res) => {
   if (body.object === "page") {
     body.entry.forEach((entry) => {
       const webhookEvent = entry.messaging[0];
-      console.log("Mensaje recibido:", webhookEvent);
+      // console.log("Mensaje recibido:", webhookEvent);
 
       // Extrae la información relevante
       const senderId = webhookEvent.sender.id;

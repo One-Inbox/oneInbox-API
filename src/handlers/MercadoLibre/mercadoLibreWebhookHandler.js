@@ -86,9 +86,9 @@ const mercadoLibreWebhookHandler = async (req, res) => {
         });
 
         if (existingMessage) {
-          console.log(
-            `MELI-PREGUNTA:Pregunta de MERCADO LIBRE en WEBHOOK HANDLER ${questionId} ya ha sido procesada previamente.`
-          );
+          // console.log(
+          //   `MELI-PREGUNTA:Pregunta de MERCADO LIBRE en WEBHOOK HANDLER ${questionId} ya ha sido procesada previamente.`
+          // );
           return res
             .status(202)
             .send("MELI-PREGUNTA:Pregunta duplicada, no se procesará.");

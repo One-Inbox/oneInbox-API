@@ -10,7 +10,7 @@ wspMessageWebhook.get("/webhook/whatsapp", (req, res) => {
 
   if (mode === "subscribe" && token === process.env.WSP_WEBHOOK_VERIFY_TOKEN) {
     res.status(200).send(challenge);
-    console.log("Webhook verified successfully!");
+    // console.log("Webhook verified successfully!");
   } else {
     res.sendStatus(403);
   }
@@ -33,12 +33,10 @@ wspMessageWebhook.post("/webhook/whatsapp", async (req, res) => {
     res.status(200).end();
   } catch (error) {
     console.error("WEBHOOK - Error procesando el mensaje de WhatsApp:", error);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "WEBHOOK - Error procesando el mensaje de WhatsApp",
-      });
+    res.status(500).json({
+      success: false,
+      message: "WEBHOOK - Error procesando el mensaje de WhatsApp",
+    });
   }
 });
 

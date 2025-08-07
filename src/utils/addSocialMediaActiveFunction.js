@@ -39,10 +39,10 @@ const addSocialMediaActiveFunction = async (
 
     // Confirmar asociaciones
     const associatedBusinesses = await newSocialMediaActive.getBusinesses();
-    console.log(
-      "Negocios asociados después de la inserción:",
-      associatedBusinesses.map((b) => b.id)
-    );
+    // console.log(
+    //   "Negocios asociados después de la inserción:",
+    //   associatedBusinesses.map((b) => b.id)
+    // );
 
     // Retornar la red social activa creada o encontrada
     return newSocialMediaActive;

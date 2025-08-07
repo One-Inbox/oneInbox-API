@@ -24,9 +24,9 @@ const mercadoLibreRegisterWebhookHandler = async (req, res) => {
       userId,
       applicationId
     );
-    console.log(
-      "MELI-PREGUNTA:Webhook de MERCADO LIBRE en REGISTER WEBHOOK HANDLER registrado correctamente."
-    );
+    // console.log(
+    //   "MELI-PREGUNTA:Webhook de MERCADO LIBRE en REGISTER WEBHOOK HANDLER registrado correctamente."
+    // );
     return res.json({
       message: "MELI-PREGUNTA:Webhook de meli registrado correctamente.",
     });

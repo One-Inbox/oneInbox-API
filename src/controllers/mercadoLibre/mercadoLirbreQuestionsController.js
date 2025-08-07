@@ -31,9 +31,9 @@ const mercadoLibreQuestionController = {
       throw new Error("MELI-PREGUNTA:El questionId o accessToken es inválido.");
     }
     try {
-      console.log(
-        `MELI-PREGUNTA CONTROLLER: Obteniendo detalles de la pregunta ${questionId}...`
-      );
+      // console.log(
+      //   `MELI-PREGUNTA CONTROLLER: Obteniendo detalles de la pregunta ${questionId}...`
+      // );
       const response = await axios.get(
         `https://api.mercadolibre.com/questions/${questionId}`,
         {
@@ -42,9 +42,9 @@ const mercadoLibreQuestionController = {
           },
         }
       );
-      console.log(
-        `MELI-PREGUNTA CONTROLLER: Detalles de la pregunta ${questionId} obtenidos exitosamente.`
-      );
+      // console.log(
+      //   `MELI-PREGUNTA CONTROLLER: Detalles de la pregunta ${questionId} obtenidos exitosamente.`
+      // );
 
       return response.data;
     } catch (error) {
@@ -59,9 +59,9 @@ const mercadoLibreQuestionController = {
 
   getProductDetails: async (itemId, accessToken) => {
     try {
-      console.log(
-        `MELI-PRODUCTO: Obteniendo detalles del producto ${itemId}...`
-      );
+      // console.log(
+      //   `MELI-PRODUCTO: Obteniendo detalles del producto ${itemId}...`
+      // );
       const response = await axios.get(
         `https://api.mercadolibre.com/items/${itemId}`,
         {
@@ -70,9 +70,9 @@ const mercadoLibreQuestionController = {
           },
         }
       );
-      console.log(
-        `MELI-PRODUCTO: Detalles del producto ${itemId} obtenidos exitosamente.`
-      );
+      // console.log(
+      //   `MELI-PRODUCTO: Detalles del producto ${itemId} obtenidos exitosamente.`
+      // );
       return response.data;
     } catch (error) {
       console.error(
@@ -87,9 +87,9 @@ const mercadoLibreQuestionController = {
 
   registerWebhook: async (accessToken, userId, applicationId) => {
     try {
-      console.log(
-        `MELI-PREGUNTA CONTROLLER: Registrando webhook para el usuario ${userId} y aplicación ${applicationId}...`
-      );
+      // console.log(
+      //   `MELI-PREGUNTA CONTROLLER: Registrando webhook para el usuario ${userId} y aplicación ${applicationId}...`
+      // );
 
       const response = await axios.post(
         `https://api.mercadolibre.com/users/${userId}/applications/${applicationId}/notifications`,
@@ -106,7 +106,7 @@ const mercadoLibreQuestionController = {
           },
         }
       );
-      console.log("MELI-PREGUNTA:Webhook registrado");
+      // console.log("MELI-PREGUNTA:Webhook registrado");
     } catch (error) {
       console.error(
         "MELI-PREGUNTA:Error al registrar el webhook:",

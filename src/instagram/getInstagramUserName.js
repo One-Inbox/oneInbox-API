@@ -26,12 +26,12 @@ const getInstagramUserName = async (senderId, businessId) => {
     // const accessToken = socialMedia.accessToken;
 
     const url = `https://graph.instagram.com/${senderId}?fields=username&access_token=${accessToken}`;
-    console.log("URL completa:", url);
-    console.log("Sender ID:", senderId);
-    console.log(
-      "Access Token (primeros 20 chars):",
-      accessToken?.substring(0, 20)
-    );
+    // console.log("URL completa:", url);
+    // console.log("Sender ID:", senderId);
+    // console.log(
+    //   "Access Token (primeros 20 chars):",
+    //   accessToken?.substring(0, 20)
+    // );
 
     const response = await axios.get(url);
 

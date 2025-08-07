@@ -69,9 +69,9 @@ const handleMessage = async (messageAllData) => {
       newContact,
       socialMediaId
     );
-    console.log(
-      "WHATSAPP-PREGUNTA: mensaje recibido guardado en la base de datos:"
-    );
+    // console.log(
+    //   "WHATSAPP-PREGUNTA: mensaje recibido guardado en la base de datos:"
+    // );
 
     //emitir mensaje a app
     if (msgReceived.processed) {

@@ -9,9 +9,9 @@ const mercadoLibreQuestionHandler = async (req, res) => {
     // const idUser = "357777393";
     // await mercadoLibreAuthController.checkAndRefreshToken(idUser);
     const accessToken = await getAccessTokenFromDB();
-    console.log(
-      "MELI-PREGUNTA:AccessToken de MERCADO LIBRE en QUESTION HANDLER obtenido:"
-    );
+    // console.log(
+    //   "MELI-PREGUNTA:AccessToken de MERCADO LIBRE en QUESTION HANDLER obtenido:"
+    // );
 
     if (!accessToken) {
       console.error(

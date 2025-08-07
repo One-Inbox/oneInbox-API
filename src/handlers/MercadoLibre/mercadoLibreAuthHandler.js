@@ -112,7 +112,7 @@ const mercadoLibreCallbackHandler = async (req, res) => {
 
   try {
     const code = req.body.code || req.query.code; // el codigo por query o por body que manda el front
-    console.log("Código recibido de Mercado Libre2:", code);
+    // console.log("Código recibido de Mercado Libre2:", code);
 
     if (!code) {
       return res.status(400).json({

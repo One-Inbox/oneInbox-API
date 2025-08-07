@@ -57,7 +57,7 @@ async function instagramWebhook(req, res) {
               socialMediaId: socialMediaId,
             };
 
-            console.log("LOG: Procesando mensaje de Instagram...");
+            // console.log("LOG: Procesando mensaje de Instagram...");
 
             const result = await processInstagramMessage(instagramMessage);
             if (!result.success) {

@@ -24,7 +24,7 @@ async function probarToken() {
       }
     );
 
-    console.log("✅ Funcionó:", response.data);
+    // console.log("✅ Funcionó:", response.data);
   } catch (error) {
     console.log("❌ Error:", error.response?.data || error.message);
   }
