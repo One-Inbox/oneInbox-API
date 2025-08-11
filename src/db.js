@@ -120,6 +120,7 @@ const syncDatabase = async () => {
 
   await MsgReceived.updateDefaultText();
   await User.updateUser();
+  await SocialMediaActive.updateSocialMediaActive();
 };
 
 const sessionStore = new SequelizeStore({

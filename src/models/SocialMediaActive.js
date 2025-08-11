@@ -1,7 +1,7 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, where } = require("sequelize");
 
 module.exports = (sequelize) => {
-  sequelize.define(
+  const SocialMediaActive = sequelize.define(
     "SocialMediaActive",
     {
       id: {
@@ -52,7 +52,45 @@ module.exports = (sequelize) => {
         allowNull: true,
         defaultValue: null,
       },
+      //datos para respuesta automatica
+      automaticResponse: {
+        type: DataTypes.JSONB,
+        allowNull: true,
+        defaultValue: {
+          active: false,
+          detail: [
+            { day: 0, startHour: null, endHour: null, message: "" },
+            { day: 1, startHour: null, endHour: null, message: "" },
+            { day: 2, startHour: null, endHour: null, message: "" },
+            { day: 3, startHour: null, endHour: null, message: "" },
+            { day: 4, startHour: null, endHour: null, message: "" },
+            { day: 5, startHour: null, endHour: null, message: "" },
+            { day: 6, startHour: null, endHour: null, message: "" },
+          ],
+        },
+      },
     },
     { timestamps: false }
   );
+
+  SocialMediaActive.updateSocialMediaActive = async function () {
+    await this.update(
+      {
+        automaticResponse: {
+          active: false,
+          detail: [
+            { day: 0, startHour: null, endHour: null, message: "" },
+            { day: 1, startHour: null, endHour: null, message: "" },
+            { day: 2, startHour: null, endHour: null, message: "" },
+            { day: 3, startHour: null, endHour: null, message: "" },
+            { day: 4, startHour: null, endHour: null, message: "" },
+            { day: 5, startHour: null, endHour: null, message: "" },
+            { day: 6, startHour: null, endHour: null, message: "" },
+          ],
+        },
+      },
+      { where: { automaticResponse: null } }
+    );
+  };
+  return SocialMediaActive;
 };
