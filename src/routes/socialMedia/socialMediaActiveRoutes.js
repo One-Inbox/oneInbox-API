@@ -11,6 +11,9 @@ const {
 const {
   deleteSocialMediaActiveHandler,
 } = require("../../handlers/SocialMedia/SocialMediaActive/deleteSocialMediaActiveHandler");
+const {
+  updateAutomaticResponseHandler,
+} = require("../../handlers/SocialMedia/SocialMediaActive/updateAutomaticResponseHandler");
 //const {authenticateBusiness} =require("../../midlewares/authenticateBusiness")
 
 const socialMediaActiveRoute = Router();
@@ -26,5 +29,9 @@ socialMediaActiveRoute.get("/", getAllSocialMediaActiveHandler);
 socialMediaActiveRoute.post("/add/", addSocialMediaActiveHandler);
 socialMediaActiveRoute.put("/update/:id", updateSocialMediaActiveHandler);
 socialMediaActiveRoute.delete("/delete/:id", deleteSocialMediaActiveHandler);
+socialMediaActiveRoute.put(
+  "/updateAutomaticResponse/:id",
+  updateAutomaticResponseHandler
+);
 
 module.exports = { socialMediaActiveRoute };
