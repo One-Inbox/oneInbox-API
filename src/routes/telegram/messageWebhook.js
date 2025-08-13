@@ -3,6 +3,9 @@ const { Business, SocialMedia } = require("../../db");
 const { newContactCreated } = require("../../utils/newContact");
 const { newMsgReceived } = require("../../utils/newMsgReceived");
 const { postNewMsgReceived } = require("../../utils/postNewMsgReceived");
+const {
+  sendAutomaticResponse,
+} = require("../../utils/automaticResponse/sendAutomaticResponse");
 require("dotenv").config();
 
 const myBusinessId =
@@ -107,6 +110,7 @@ module.exports = (io) => {
           },
         };
         await postNewMsgReceived(msgReceivedData, res);
+        await sendAutomaticResponse(msgReceivedData);
       }
     } catch (error) {
       console.error(

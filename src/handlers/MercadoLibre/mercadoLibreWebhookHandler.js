@@ -11,6 +11,9 @@ const {
 const { newContactCreated } = require("../../utils/newContact");
 const { newMsgReceived } = require("../../utils/newMsgReceived");
 const { postNewMsgReceived } = require("../../utils/postNewMsgReceived");
+const {
+  sendAutomaticResponse,
+} = require("../../utils/automaticResponse/sendAutomaticResponse");
 const { getAccessTokenFromDB } = require("../../utils/getAccessToken");
 const mercadoLibreAuthController = require("../../controllers/mercadoLibre/mercadoLibreAuthController");
 const {
@@ -162,6 +165,7 @@ const mercadoLibreWebhookHandler = async (req, res) => {
           };
 
           await postNewMsgReceived(msgReceivedData, res);
+          await sendAutomaticResponse(msgReceivedData);
         }
       } else {
         console.error(

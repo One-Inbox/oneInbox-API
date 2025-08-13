@@ -1,5 +1,8 @@
 const { newMsgReceived } = require("../utils/newMsgReceived");
 const { postNewMsgReceived } = require("../utils/postNewMsgReceived");
+const {
+  sendAutomaticResponse,
+} = require("../utils/automaticResponse/sendAutomaticResponse");
 const { newContactCreated } = require("../utils/newContact");
 const { Business, SocialMedia } = require("../db");
 
@@ -103,6 +106,7 @@ const processInstagramMessage = async (instagramMessage) => {
       };
 
       await postNewMsgReceived(msgReceivedData);
+      await sendAutomaticResponse(msgReceivedData);
       return { success: true }; // Devolver éxito si todo salió bien
     }
 

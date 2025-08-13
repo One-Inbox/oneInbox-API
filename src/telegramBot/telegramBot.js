@@ -3,6 +3,9 @@ const { Business, SocialMedia } = require("../db");
 const { newContactCreated } = require("../utils/newContact");
 const { newMsgReceived } = require("../utils/newMsgReceived");
 const { postNewMsgReceived } = require("../utils/postNewMsgReceived");
+const {
+  sendAutomaticResponse,
+} = require("../utils/automaticResponse/sendAutomaticResponse");
 require("dotenv").config();
 
 const botToken = process.env.TELEGRAM_BOT_TOKEN;
@@ -85,6 +88,7 @@ bot.on("message", async (msg) => {
       };
 
       await postNewMsgReceived(msgReceivedData);
+      await sendAutomaticResponse(msgReceivedData);
     }
   } catch (error) {
     console.error(

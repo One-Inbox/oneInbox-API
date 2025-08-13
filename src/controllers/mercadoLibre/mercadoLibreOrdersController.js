@@ -8,6 +8,9 @@ const {
 const { newContactCreated } = require("../../utils/newContact");
 const { newMsgReceived } = require("../../utils/newMsgReceived");
 const { postNewMsgReceived } = require("../../utils/postNewMsgReceived");
+const {
+  sendAutomaticResponse,
+} = require("../../utils/automaticResponse/sendAutomaticResponse");
 require("dotenv").config();
 
 const businessId =
@@ -149,6 +152,7 @@ const mercadoLibreOrdersController = async (accessToken, idUser) => {
           };
 
           await postNewMsgReceived(msgReceivedData, res);
+          await sendAutomaticResponse(msgReceivedData);
         }
       }
     } catch (error) {

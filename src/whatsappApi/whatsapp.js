@@ -11,6 +11,9 @@ require("dotenv").config();
 const { newContactCreated } = require("../utils/newContact");
 const { newMsgReceived } = require("../utils/newMsgReceived");
 const { postNewMsgReceived } = require("../utils/postNewMsgReceived");
+const {
+  sendAutomaticResponse,
+} = require("../utils/automaticResponse/sendAutomaticResponse");
 require("dotenv").config();
 
 const businessId =
@@ -106,6 +109,7 @@ const handleMessage = async (messageAllData) => {
         },
       };
       await postNewMsgReceived(msgReceivedData, null);
+      await sendAutomaticResponse(msgReceivedData);
     }
   } catch (error) {
     console.error(

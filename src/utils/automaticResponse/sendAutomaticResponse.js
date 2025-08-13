@@ -11,8 +11,8 @@ const sendAutomaticResponse = async (msgReceived) => {
   const businessId = msgReceived.BusinessId ? msgReceived.BusinessId : null;
   if (!socialMediaId || !businessId)
     throw new Error("Missing data for search Social Media Active");
-  const timestamps = msgReceived.timestamps ? msgReceived.timestamps : null;
-  if (!timestamps) throw new Error("Missing date for message Received");
+  const timestamp = msgReceived.timestamp ? msgReceived.timestamp : null;
+  if (!timestamp) throw new Error("Missing date for message Received");
 
   try {
     const socialMediaActive = await searchSocialMediaActive(
@@ -24,7 +24,7 @@ const sendAutomaticResponse = async (msgReceived) => {
     }
     if (socialMediaActive.automaticResponse.active === false) return;
 
-    const date = new Date(timestamps);
+    const date = new Date(timestamp);
     const dayOfWeek = date.getDay();
     const currentMinutes = date.getHours() * 60 + date.getMinutes();
 
@@ -42,11 +42,12 @@ const sendAutomaticResponse = async (msgReceived) => {
       );
       return;
     }
+    const accessToken = socialMediaActive.accessToken || null;
     const msgToSent = {
       chatId: msgReceived.chatId,
       message: findAutomaticResponse.detail.message,
       UserId: msgReceived.UserId,
-      accessToken: msgReceived.accessToken || null,
+      accessToken,
       businessId,
       IdSocialMedia: socialMediaId,
       phone: msgReceived.phone || null,
