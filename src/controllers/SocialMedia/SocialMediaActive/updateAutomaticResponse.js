@@ -8,15 +8,24 @@ const updateAutomaticResponse = async (id, automaticResponse) => {
     const socialMediaToUpdate = await SocialMediaActive.findByPk(id);
     if (!socialMediaToUpdate) {
       throw new Error(`Social Media with Id ${id} not found`);
-    } else {
-      socialMediaToUpdate.automaticResponse = {
-        ...socialMediaToUpdate.automaticResponse,
-        active: true,
-        detail: automaticResponse,
-      };
-      await socialMediaToUpdate.save();
-      return `Congratulation! Social Media with ID ${id} has been updated`;
     }
+    // Obtenemos lo que ya está en la BD
+    const currentDetail = socialMediaToUpdate.automaticResponse?.detail || [];
+
+    // Reemplazamos solo los días que vienen del front
+    const updatedDetail = currentDetail.map((dayObj) => {
+      const found = automaticResponse.find(
+        (newObj) => Number(newObj.day) === Number(dayObj.day)
+      );
+      return found ? { ...dayObj, ...found } : dayObj;
+    });
+    socialMediaToUpdate.automaticResponse = {
+      ...socialMediaToUpdate.automaticResponse,
+      active: true,
+      detail: updatedDetail,
+    };
+    await socialMediaToUpdate.save();
+    return `Congratulation! Social Media with ID ${id} has been updated`;
   } catch (error) {
     throw error;
   }
