@@ -73,7 +73,7 @@ const sendAutomaticResponse = async (msgReceived) => {
       businessId,
       IdSocialMedia: socialMediaId,
       phone: msgReceived.phone || null,
-      contactId: msgReceived.contactId,
+      contactId: msgReceived.ContactId,
       idUser: msgReceived.idUser || null,
       idSeller: msgReceived.idSeller || null,
       idBuyer: msgReceived.idBuyer || null,
