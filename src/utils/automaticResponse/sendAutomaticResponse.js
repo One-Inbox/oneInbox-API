@@ -24,17 +24,17 @@ const sendAutomaticResponse = async (msgReceived) => {
     }
     if (socialMediaActive.automaticResponse.active === false) return;
 
-    const date = new Date(Date.now());
-    const dayOfWeek = date.getDay();
-    const currentMinutes = date.getHours() * 60 + date.getMinutes();
+    const date = await new Date(Date.now());
+    const dayOfWeek = await date.getDay();
+    const currentMinutes = (await date.getHours()) * 60 + date.getMinutes();
 
     console.log(
       `Procesando mensaje - Día: ${dayOfWeek}, Hora actual: ${date.getHours()}:${date.getMinutes()}`
     );
 
     const findAutomaticResponse =
-      socialMediaActive.automaticResponse.detail.find(
-        (ar) => ar.day === dayOfWeek
+      await socialMediaActive.automaticResponse.detail.find(
+        (ar) => Number(ar.day) === Number(dayOfWeek)
       );
     if (!findAutomaticResponse) {
       console.log(
@@ -42,7 +42,12 @@ const sendAutomaticResponse = async (msgReceived) => {
       );
       throw new Error(`Automatic response for day ${dayOfWeek} not found`);
     }
-    if (findAutomaticResponse.detail.message === "") {
+    if (
+      !findAutomaticResponse.detail ||
+      !findAutomaticResponse.detail.message ||
+      findAutomaticResponse.detail.message === "" ||
+      findAutomaticResponse.detail.message === null
+    ) {
       console.warn(
         "No hay mensaje automatico cargado en la red social",
         socialMediaId,
@@ -52,9 +57,15 @@ const sendAutomaticResponse = async (msgReceived) => {
       return;
     }
     const accessToken = socialMediaActive.accessToken || null;
+    const message =
+      findAutomaticResponse &&
+      findAutomaticResponse.detail &&
+      findAutomaticResponse.detail.message;
+    console.log(`Mensaje automático encontrado: "${message}"`);
+
     const msgToSent = {
       chatId: msgReceived.chatId,
-      message: findAutomaticResponse.detail.message,
+      message: message,
       UserId: msgReceived.UserId,
       accessToken,
       businessId,
