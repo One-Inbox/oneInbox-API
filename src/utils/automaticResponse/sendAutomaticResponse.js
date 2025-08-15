@@ -42,6 +42,11 @@ const sendAutomaticResponse = async (msgReceived) => {
       );
       throw new Error(`Automatic response for day ${dayOfWeek} not found`);
     }
+    console.log(
+      " Configuración de respuesta automática encontrada:",
+      findAutomaticResponse
+    );
+
     if (
       !findAutomaticResponse.detail ||
       !findAutomaticResponse.detail.message ||
@@ -50,7 +55,7 @@ const sendAutomaticResponse = async (msgReceived) => {
     ) {
       console.warn(
         "No hay mensaje automatico cargado en la red social",
-        socialMediaId,
+        socialMediaActive.id,
         "para el dia",
         dayOfWeek
       );
