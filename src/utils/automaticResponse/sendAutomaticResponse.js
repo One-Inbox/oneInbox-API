@@ -48,10 +48,9 @@ const sendAutomaticResponse = async (msgReceived) => {
     );
 
     if (
-      !findAutomaticResponse.detail ||
-      !findAutomaticResponse.detail.message ||
-      findAutomaticResponse.detail.message === "" ||
-      findAutomaticResponse.detail.message === null
+      !findAutomaticResponse.message ||
+      findAutomaticResponse.message === "" ||
+      findAutomaticResponse.message === null
     ) {
       console.warn(
         "No hay mensaje automatico cargado en la red social",
@@ -62,10 +61,7 @@ const sendAutomaticResponse = async (msgReceived) => {
       return;
     }
     const accessToken = socialMediaActive.accessToken || null;
-    const message =
-      findAutomaticResponse &&
-      findAutomaticResponse.detail &&
-      findAutomaticResponse.detail.message;
+    const message = findAutomaticResponse && findAutomaticResponse.message;
     console.log(`Mensaje automático encontrado: "${message}"`);
 
     const msgToSent = {
