@@ -63,6 +63,7 @@ const sendAutomaticResponse = async (msgReceived) => {
     const accessToken = socialMediaActive.accessToken || null;
     const message = findAutomaticResponse && findAutomaticResponse.message;
     console.log(`Mensaje automático encontrado: "${message}"`);
+    console.log("argumentos recibidos para enviar el mensaje:", msgReceived);
 
     const msgToSent = {
       chatId: msgReceived.chatId,
@@ -77,6 +78,7 @@ const sendAutomaticResponse = async (msgReceived) => {
       idSeller: msgReceived.idSeller || null,
       idBuyer: msgReceived.idBuyer || null,
     };
+    console.log("Mensaje a enviar:", msgToSent);
 
     const { startHour, endHour } = findAutomaticResponse;
     console.log(
