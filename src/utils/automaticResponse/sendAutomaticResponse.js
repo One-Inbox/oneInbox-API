@@ -78,7 +78,7 @@ const sendAutomaticResponse = async (msgReceived) => {
       idBuyer: msgReceived.idBuyer || null,
     };
 
-    const { startHour, endHour } = findAutomaticResponse.detail;
+    const { startHour, endHour } = findAutomaticResponse;
     console.log(
       `Configuración encontrada - Horario: ${startHour} - ${endHour}, Mensaje: "${findAutomaticResponse.message}"`
     );
