@@ -11,8 +11,8 @@ const sendAutomaticResponse = async (msgReceived) => {
   const businessId = msgReceived.BusinessId ? msgReceived.BusinessId : null;
   if (!socialMediaId || !businessId)
     throw new Error("Missing data for search Social Media Active");
-  const timestamp = msgReceived.timestamp ? msgReceived.timestamp : null;
-  if (!timestamp) throw new Error("Missing date for message Received");
+  // const timestamp = msgReceived.timestamp ? msgReceived.timestamp : null;
+  // if (!timestamp) throw new Error("Missing date for message Received");
 
   try {
     const socialMediaActive = await searchSocialMediaActive(
@@ -24,7 +24,7 @@ const sendAutomaticResponse = async (msgReceived) => {
     }
     if (socialMediaActive.automaticResponse.active === false) return;
 
-    const date = new Date(timestamp);
+    const date = new Date(Date.now());
     const dayOfWeek = date.getDay();
     const currentMinutes = date.getHours() * 60 + date.getMinutes();
 
@@ -80,9 +80,10 @@ const sendAutomaticResponse = async (msgReceived) => {
       await axios.post(`${URL_API}/messageSend`, msgToSent);
     } else {
       const [startH, startM] = startHour.split(":").map(Number);
-      const currentStartMinutes = startH * 60 + startM;
+      const startMinutes = startH * 60 + startM;
       const [endH, endM] = endHour.split(":").map(Number);
-      const currentEndMinutes = endH * 60 + endM;
+      const endMinutes = endH * 60 + endM;
+
       console.log(
         `Horario de atención: ${startMinutes} - ${endMinutes} minutos, Actual: ${currentMinutes} minutos`
       );
