@@ -28,11 +28,20 @@ const sendAutomaticResponse = async (msgReceived) => {
     const dayOfWeek = date.getDay();
     const currentMinutes = date.getHours() * 60 + date.getMinutes();
 
-    const findAutomaticResponse = socialMediaActive.automaticResponse.find(
-      (ar) => ar.detail.day === dayOfWeek
+    console.log(
+      `Procesando mensaje - Día: ${dayOfWeek}, Hora actual: ${date.getHours()}:${date.getMinutes()}`
     );
-    if (!findAutomaticResponse)
+
+    const findAutomaticResponse =
+      socialMediaActive.automaticResponse.detail.find(
+        (ar) => ar.day === dayOfWeek
+      );
+    if (!findAutomaticResponse) {
+      console.log(
+        `No hay configuración de respuesta automática para el día ${dayOfWeek}`
+      );
       throw new Error(`Automatic response for day ${dayOfWeek} not found`);
+    }
     if (findAutomaticResponse.detail.message === "") {
       console.warn(
         "No hay mensaje automatico cargado en la red social",
@@ -58,23 +67,62 @@ const sendAutomaticResponse = async (msgReceived) => {
     };
 
     const { startHour, endHour } = findAutomaticResponse.detail;
-    if (startHour === null || endHour === null) {
+    console.log(
+      `Configuración encontrada - Horario: ${startHour} - ${endHour}, Mensaje: "${findAutomaticResponse.message}"`
+    );
+    if (
+      startHour === null ||
+      endHour === null ||
+      startHour === "" ||
+      endHour === ""
+    ) {
+      console.log("Sin horarios configurados, enviando respuesta automática");
       await axios.post(`${URL_API}/messageSend`, msgToSent);
     } else {
       const [startH, startM] = startHour.split(":").map(Number);
       const currentStartMinutes = startH * 60 + startM;
       const [endH, endM] = endHour.split(":").map(Number);
       const currentEndMinutes = endH * 60 + endM;
-      if (
-        currentMinutes < currentStartMinutes ||
-        currentMinutes > currentEndMinutes
-      ) {
+      console.log(
+        `Horario de atención: ${startMinutes} - ${endMinutes} minutos, Actual: ${currentMinutes} minutos`
+      );
+
+      // Verificar si estamos DENTRO del horario de atención
+      let isWithinBusinessHours = false;
+      if (startMinutes <= endMinutes) {
+        // Horario normal (ej: 09:00 - 17:00)
+        isWithinBusinessHours =
+          currentMinutes >= startMinutes && currentMinutes <= endMinutes;
+      } else {
+        // Horario que cruza medianoche (ej: 22:00 - 06:00)
+        isWithinBusinessHours =
+          currentMinutes >= startMinutes || currentMinutes <= endMinutes;
+      }
+
+      console.log(`¿Dentro del horario de atención? ${isWithinBusinessHours}`);
+
+      // if (
+      //   currentMinutes < currentStartMinutes ||
+      //   currentMinutes > currentEndMinutes
+      // ) {
+      //   await axios.post(`${URL_API}/messageSend`, msgToSent);
+      // } else {
+      //   return;
+      // }
+      // Enviar mensaje automático solo si está FUERA del horario de atención
+      if (!isWithinBusinessHours) {
+        console.log(
+          "FUERA del horario de atención -> Enviando respuesta automática"
+        );
         await axios.post(`${URL_API}/messageSend`, msgToSent);
       } else {
-        return;
+        console.log(
+          "DENTRO del horario de atención -> NO se envía respuesta automática"
+        );
       }
     }
   } catch (error) {
+    console.error("Error en sendAutomaticResponse:", error);
     throw error;
   }
 };
