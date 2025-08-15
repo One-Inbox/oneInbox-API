@@ -151,7 +151,7 @@ server.post("/messageSend", async (req, res) => {
   if (
     !chatId ||
     !message ||
-    !UserId ||
+    // !UserId ||
     !businessId ||
     !IdSocialMedia ||
     !contactId

@@ -68,7 +68,7 @@ const sendAutomaticResponse = async (msgReceived) => {
     const msgToSent = {
       chatId: msgReceived.chatId,
       message: message,
-      UserId: msgReceived.UserId ? msgReceived.UserId : msgReceived.idUser,
+      UserId: null,
       accessToken,
       businessId,
       IdSocialMedia: socialMediaId,
