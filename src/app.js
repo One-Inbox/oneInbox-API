@@ -133,6 +133,7 @@ server.post("/newMessageReceived", async (req, res) => {
   }
 });
 server.post("/messageSend", async (req, res) => {
+  console.log("Mensaje recibido para enviar:", req.body);
   const {
     chatId,
     message,
