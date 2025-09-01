@@ -167,7 +167,7 @@ const mercadoLibreWebhookHandler = async (req, res) => {
           // await postNewMsgReceived(msgReceivedData, res);
           // await sendAutomaticResponse(msgReceivedData);
           try {
-            await postNewMsgReceived(msgReceivedData, res);
+            await postNewMsgReceived(msgReceivedData);
           } catch (err) {
             console.error("Error al guardar mensaje:", err.message);
           }
