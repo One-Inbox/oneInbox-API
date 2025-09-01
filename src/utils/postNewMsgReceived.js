@@ -7,20 +7,33 @@ const postNewMsgReceived = async (msgReceivedData, res) => {
   try {
     // Filtrar mensajes de tipo echo
     if (msgReceivedData?.is_echo) {
-      res && res.status(200).send("Mensaje de tipo echo ignorado");
+      if (res && !res.headersSent) {
+        res.status(200).send("Mensaje de tipo echo ignorado");
+      }
       return;
     }
+    //   res && res.status(200).send("Mensaje de tipo echo ignorado");
+    //   return;
+    // }
     await axios.post(`${URL_API}/newMessageReceived`, msgReceivedData);
-    res && res.status(200).send("OK");
+    // res && res.status(200).send("OK");
+    if (res && !res.headersSent) {
+      res.status(200).send("OK");
+    }
   } catch (error) {
     console.error(
       "PREGUNTA:Error al enviar datos del mensaje recibido a app",
       error.message
     );
-    res &&
+    // res &&
+    //   res
+    //     .status(500)
+    //     .json({ message: "PREGUNTA: Error al enviar los datos a la app." });
+    if (res && !res.headersSent) {
       res
         .status(500)
         .json({ message: "PREGUNTA: Error al enviar los datos a la app." });
+    }
   }
 };
 

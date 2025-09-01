@@ -108,8 +108,23 @@ const handleMessage = async (messageAllData) => {
           icon: socialMedia.icon ? socialMedia.icon : socialMediaData.icon,
         },
       };
-      await postNewMsgReceived(msgReceivedData, null);
-      await sendAutomaticResponse(msgReceivedData);
+      // await postNewMsgReceived(msgReceivedData, null);
+      // await sendAutomaticResponse(msgReceivedData);
+      try {
+        await postNewMsgReceived(msgReceivedData);
+      } catch (err) {
+        console.error("Error al guardar mensaje:", err.message);
+      }
+
+      // Intentar enviar respuesta automática siempre
+      try {
+        await sendAutomaticResponse(msgReceivedData);
+      } catch (err) {
+        console.error("Error al enviar respuesta automática:", err.message);
+      }
+
+      console.log("Mensaje procesado correctamente en WhatsApp");
+      return;
     }
   } catch (error) {
     console.error(

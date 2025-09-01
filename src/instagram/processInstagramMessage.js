@@ -105,8 +105,20 @@ const processInstagramMessage = async (instagramMessage) => {
         },
       };
 
-      await postNewMsgReceived(msgReceivedData);
-      await sendAutomaticResponse(msgReceivedData);
+      // await postNewMsgReceived(msgReceivedData);
+      // await sendAutomaticResponse(msgReceivedData);
+      try {
+        await postNewMsgReceived(msgReceivedData);
+      } catch (err) {
+        console.error("Error al guardar mensaje:", err.message);
+      }
+
+      // Intentar enviar respuesta automática siempre
+      try {
+        await sendAutomaticResponse(msgReceivedData);
+      } catch (err) {
+        console.error("Error al enviar respuesta automática:", err.message);
+      }
       return { success: true }; // Devolver éxito si todo salió bien
     }
 

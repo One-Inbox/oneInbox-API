@@ -109,8 +109,24 @@ module.exports = (io) => {
             icon: socialMedia.icon,
           },
         };
-        await postNewMsgReceived(msgReceivedData, res);
-        await sendAutomaticResponse(msgReceivedData);
+        // await postNewMsgReceived(msgReceivedData, res);
+        // await sendAutomaticResponse(msgReceivedData);
+        try {
+          await postNewMsgReceived(msgReceivedData, res);
+        } catch (err) {
+          console.error("Error al guardar mensaje:", err.message);
+        }
+
+        // Intentar enviar respuesta automática siempre
+        try {
+          await sendAutomaticResponse(msgReceivedData);
+        } catch (err) {
+          console.error("Error al enviar respuesta automática:", err.message);
+        }
+
+        return res
+          .status(200)
+          .json({ message: "Evento procesado correctamente" });
       }
     } catch (error) {
       console.error(
